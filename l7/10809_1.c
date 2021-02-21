@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 
 int main(void)
 {
     char s[100] = {0,}, x[26] = {0,};
     scanf("%s", s);
 
-    for (int i=0; i<100; i++)
+    for (int i=0; i<strlen(s); i++)
     {
         if (x[s[i]-'a'] == 0)
             x[s[i]-'a']=i+1;
