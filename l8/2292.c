@@ -1,4 +1,3 @@
-// finding minimum route in the honeycomb
 #include <stdio.h>
 
 int main(void)

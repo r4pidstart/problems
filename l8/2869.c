@@ -1,4 +1,3 @@
-// find the length of time the snail climb 
 #include <stdio.h>
 
 int main(void)

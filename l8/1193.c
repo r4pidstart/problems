@@ -1,4 +1,3 @@
-// find the fraction in array
 #include <stdio.h>
 
 int main(void)

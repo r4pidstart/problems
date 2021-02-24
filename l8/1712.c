@@ -1,4 +1,3 @@
-// finding break-even point by cost and price
 #include <stdio.h>
 
 int main(void)
