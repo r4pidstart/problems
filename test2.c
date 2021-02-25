@@ -1,42 +1,55 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<string.h>
 
-int test1(int a, int b)
+int reverse(char *s)
 {
-    int tmp=0;
-    if (a==0)
-        return b;
-    for (int i=0; i<b; i++)
-        tmp+=test1(a-1,i+1);
-    return tmp;
+    for (int i=0, n=strlen(s); i<n/2; i++)
+    {
+        int tmp=s[i];
+        s[i]=s[n-i-1];
+        s[n-i-1]=tmp;
+    }
+    return 0;
 }
-
-int test2(int a, int b)
-{
-    if (a==0)
-        return b;
-    if (b==1)
-        return 1;
-    return test2(a-1,b) + test2(a,b-1);
-}
-
 
 int main(void)
 {
-    int arr[15][15] = {0, };
-    for(int i = 0; i < 15; i++)
-        arr[0][i] = i; 
+    char a[10002], b[10002];
+    char ans[10003];
+    scanf("%s%s",a,b);
 
-    for(int i = 1; i < 15; i++) 
-        for(int j = 1; j < 15; j++) 
-            arr[i][j] = arr[i-1][j] + arr[i][j-1];
-
-    for(int i=1; i<14; i++)
+    reverse(a);
+    reverse(b);
+    
+    for(int i=0, n=strlen(a)>strlen(b) ? strlen(a):strlen(b); i<n; i++)
     {
-        for(int j=1; j<14; j++)
+        if(ans[i] + a[i]-'0' + b[i]-'0' > 9)
         {
-            if(test1(i,j) != arr[i][j] || test2(i,j) != arr[i][j])
-                printf("%d %d %d\n", test1(i,j), test2(i,j), arr[i][j]);
-            printf("%d, %d /",i,j);
+            ans[i]+=a[i]-'0'+b[i]-'0'-10+1;
+            ans[i+1]++;
         }
+        else
+        {
+            if(a[i]==0 || b[i]==0)
+            {
+                if(ans[i] + a[i]-'0' + b[i] > 9)
+                    {
+                        ans[i]+=a[i]-'0'+b[i]-10+1;
+                        ans[i+1]++;
+                    }
+                else
+                    ans[i]+=a[i]-'0' + b[i]+1;
+            }
+            else
+                ans[i]+=a[i]-'0' + b[i]-'0'+1;
+        }
+    }
+    if (ans[strlen(ans)-1]==1)
+        ans[strlen(ans)-1]++;
+
+    for(int i=strlen(ans)-1; i>=0; i--)
+    {
+        int tmp=ans[i]-1;
+        printf("%i", tmp);
     }
 }

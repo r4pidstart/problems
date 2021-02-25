@@ -14,5 +14,5 @@ int main(void)
     B[0]=B[2];
     B[2]=tmp;
 
-    printf("%s\n", atoi(A)>atoi(B) ? A:B);
+    printf("%s\n", (A)>atoi(B) ? A:B);
 }
