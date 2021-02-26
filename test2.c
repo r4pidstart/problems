@@ -1,55 +1,38 @@
-#include<stdio.h>
-#include<string.h>
-
-int reverse(char *s)
-{
-    for (int i=0, n=strlen(s); i<n/2; i++)
-    {
-        int tmp=s[i];
-        s[i]=s[n-i-1];
-        s[n-i-1]=tmp;
-    }
-    return 0;
-}
+#include <stdio.h>
+#include <math.h>
 
 int main(void)
 {
-    char a[10002]={0,}, b[10002]={0,};
-    char ans[10003]={0,};
-    scanf("%s%s",a,b);
+    unsigned int sub;
+    unsigned int n1;
+    unsigned int n2;
+    int j;
+    int r1;
+    int r2;
 
-    reverse(a);
-    reverse(b);
-    
-    for(int i=0, n=strlen(a)>strlen(b) ? strlen(a):strlen(b); i<n; i++)
+    int x=0;
+    // for(int y=1; y<110000; y++)
+    int y=101123;
     {
-        if(ans[i] + a[i]-'0' + b[i]-'0' > 9)
-        {
-            ans[i]+=a[i]-'0'+b[i]-'0'-10+1;
-            ans[i+1]++;
-        }
-        else
-        {
-            if(a[i]==0 || b[i]==0)
-            {
-                if(ans[i] + a[i]-'0' + b[i] > 9)
-                    {
-                        ans[i]+=a[i]-'0'+b[i]-10+1;
-                        ans[i+1]++;
-                    }
-                else
-                    ans[i]+=a[i]-'0' + b[i]+1;
-            }
-            else
-                ans[i]+=a[i]-'0' + b[i]-'0'+1;
-        }
-    }
-    if (ans[strlen(ans)-1]==1)
-        ans[strlen(ans)-1]++;
+        int z=y-x;
+        int i=sqrt(z);
+        z=z-(i*i);
+        int n=2*i-1;
+        n+=(z%i ? z/i+1:z/i);
 
-    for(int i=strlen(ans)-1; i>=0; i--)
-    {
-        int tmp=ans[i]-1;
-        printf("%i", tmp);
+        r1=n;
+
+        sub = y - x;
+        n1 = 0; n2 = 0; j = 0;
+        while (n1 < sub) {
+            n2 += j * 2;
+            n1 += ++j * 2;
+        }
+        r2= (n1 - sub < j ? j * 2 : j * 2 - 1);
+
+        if (r2!=r1)
+        {
+            printf("%d %d / %d %d\n", x,y,r1,r2);
+        }
     }
 }
