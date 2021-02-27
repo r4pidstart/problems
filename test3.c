@@ -1,36 +1,32 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
 
-int reverse(char *s)
-{
-    for (int i=0, n=strlen(s); i<n/2; i++)
-    {
-        int tmp=s[i];
-        s[i]=s[n-i-1];
-        s[n-i-1]=tmp;
+int main(){
+	int M, N, i, j;
+    int min, flags, sum=0;
+    
+    scanf("%d", &M);
+    scanf("%d", &N);
+    
+    for( i=M ; i<=N ; i++ ){
+    	flags=0;
+        if( i==1 )
+        	continue;
+            
+        for(j=2 ; j<i ; j++ )
+        	if( i%j==0 )
+            	flags=1;
+                
+        if( flags==0 ){
+        	if( sum==0 )
+            	min=i;
+            sum += i;
+        }
     }
-}
-
-int main(void)
-{
-    char a[10002]={0,},b[10002]={0,},ans[10003]={0,};
-    scanf("%s %s", a,b);
-    reverse(a);
-    reverse(b);
-    int carry=0, n=strlen(a)>strlen(b)? strlen(a):strlen(b);
-    for(int i=0; i<n; i++)
-    {
-        ans[i]=a[i]+b[i]+carry-2*'0';
-        while(ans[i]<0)
-            ans[i]+='0';
-        if(ans[i]>9)
-            carry=1;
-        else
-            carry=0;
-        ans[i]=ans[i]%10+'0';
-    }
-    if(carry==1)
-        ans[n]='1';
-    reverse(ans);
-    printf("%s", ans);
+    
+    if(sum==0)
+    	printf("-1\n");
+    else
+    	printf("%d\n%d\n", sum, min);
+    
+	return 0;
 }

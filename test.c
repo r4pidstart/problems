@@ -1,20 +1,15 @@
-#include<stdio.h>
-#include<math.h>
+#include <stdio.h>
 
 int main(void)
 {
-    int t;
-    scanf("%d", &t);
-    while(t--!=0)
-    {
-        int x,y,i;
-        scanf("%d%d", &x,&y);
-        int z=y-x;
-        i=sqrt(z);
-        z=z-(i*i);
-        int n=2*i-1;
-        n+=(z%i ? z/i+1:z/i);
-
-        printf("%d\n", n);
-    }
+    int n;
+    scanf("%d", &n);
+    for(int i=2; i*i<=n; i++)
+        if(n%i==0)
+        {
+            n/=i;
+            printf("%d\n", i--);
+        }
+    if(n!=1)
+        printf("%d", n);
 }
