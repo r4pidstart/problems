@@ -24,14 +24,23 @@ int main(void)
     while(t--!=0)
     {
         scanf("%d", &n);
-        int i=n/2-1, j;
+        int i=n/2-1, j=n/2+1;
         while(1)
         {
             while(table[++i]);
-            j=n-i;
-            if(!table[j])
-                break;
+            j=n/2+1;
+            while(1)
+            {
+                while(table[--j]);
+                if(i+j>n)
+                    j--;
+                else if(i+j<n)
+                    break;
+                else
+                    goto EXIT;
+            }
         }
+        EXIT:
             printf("%d %d\n", j,i);
     }
 }
