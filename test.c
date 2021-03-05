@@ -25,4 +25,4 @@ int main(void)
     sequences(n, m, 1, 0);
 }
 
-// test auto push
+// test auto push2
