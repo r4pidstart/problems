@@ -24,3 +24,5 @@ int main(void)
     scanf("%d%d", &n, &m);
     sequences(n, m, 1, 0);
 }
+
+// test auto push
