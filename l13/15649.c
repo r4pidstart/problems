@@ -15,7 +15,7 @@ int permutation(int n, int r, int l)
     for(int i=0; i<n; i++)
         if(checklist[i]==0)
         {
-            res[l]=i;
+            res[l]=i+1;
             checklist[i]=1;
             permutation(n,r,l+1);
             checklist[i]=0;
