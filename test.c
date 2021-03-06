@@ -15,7 +15,7 @@ int combination(int n, int r)
 {
     return pactorial(n)/pactorial(n-r)/pactorial(r);
 }
-
+// test
 int queen(int x, int y, int n)
 {
     if (x==n && y==n)
