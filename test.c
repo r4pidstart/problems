@@ -56,7 +56,6 @@ int queen(int x, int y, int n)
                 queen(i,j,n); // O
             }
         }
-}
 
 int main(void)
 {
