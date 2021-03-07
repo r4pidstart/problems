@@ -1,5 +1,6 @@
     #include<stdio.h>
     #include<stdlib.h>
+    
     int count =0;
     int arr[15] ={0,};
 
@@ -12,6 +13,8 @@
         }
         return 1;
     }
+
+
 
     int queen(int size, int depth)
     {
@@ -27,7 +30,7 @@
                     arr[depth]=0;
                 }
             }
-    }
+    } //test
 
     int main(void)
     {
