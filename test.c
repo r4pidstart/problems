@@ -27,7 +27,7 @@
                     arr[depth]=0;
                 }
             }
-    }
+    } //test
 
     int main(void)
     {
