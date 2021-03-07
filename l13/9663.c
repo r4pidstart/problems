@@ -14,8 +14,6 @@
         return 1;
     }
 
-
-
     int queen(int size, int depth)
     {
         if(size==depth)
@@ -30,7 +28,7 @@
                     arr[depth]=0;
                 }
             }
-    } //test
+    }
 
     int main(void)
     {
