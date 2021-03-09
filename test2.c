@@ -1,23 +1,35 @@
 #include<stdio.h>
-#include<stdlib.h>
+int memo[51][51][51] = {0,};
+int w20=0;
 
-int *test;
-
-int appand(int i)
+int w(int a, int b, int c)
 {
-    int N=0;
-    while(test[N]!=0)
-        N++;
-    test[N]=i;
+    if(a<=0 || b<=0 || c<=0)
+        return 1;
+    else if(a>20 || b>20 || c>20)
+    {
+        if(w20==0)
+            w20=w(20,20,20);
+        return w20;
+    }
+    else if(a<b && b<c)
+    {
+        if(memo[a][b][c]==0)
+            memo[a][b][c]=w(a, b, c-1) + w(a, b-1, c-1) - w(a, b-1, c);
+        return memo[a][b][c];
+    }
+    else
+    {
+        if(memo[a][b][c]==0)
+            memo[a][b][c]=w(a-1, b, c) + w(a-1, b-1, c) + w(a-1, b, c-1) - w(a-1, b-1, c-1);
+        return memo[a][b][c];
+    }
 }
-
 
 int main(void)
 {
-    test=malloc(4*5);
-    appand(1);
-    appand(2);
-    appand(3);
-    for(int i=0; i<6; i++)
-        printf("%d ", test[i]);
+    
+    int a,b,c;
+    while(scanf("%d%d%d", &a,&b,&c), a!=-1 || b!=-1 || c!=-1)
+        printf("w(%d, %d, %d) = %d",a,b,c, w(a,b,c));
 }
