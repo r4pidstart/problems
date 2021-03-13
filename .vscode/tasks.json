@@ -27,7 +27,8 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
-                "-lm"
+                "-lm",
+                "-lstdc++"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
