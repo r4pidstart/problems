@@ -32,7 +32,6 @@ int main(void)
     int tmp=num[1]-num[0];
     for(int i=2; i<n; i++)
         tmp=gcd(tmp, num[i]-num[i-1]);
-    int j=1;
     for(int i=1; i*i<=tmp; i++)
         if(tmp%i==0)
         {
@@ -40,7 +39,6 @@ int main(void)
             if(i*i!=tmp)
                 factor[count++]=tmp/i;
         }
-
     qsort(factor, count, sizeof(int), compare);
     for(int i=1; i<count; i++)
         printf("%d ", factor[i]);
