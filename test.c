@@ -17,4 +17,4 @@ int main(void)
     int n,r;
     scanf("%d%d", &n,&r);
     printf("%lld", nCr(n,r<n-r ? r:n-r));
-}
+} test
