@@ -1,47 +1,20 @@
 #include<stdio.h>
-#include<stdlib.h>
- 
- int gcd(int a, int b)
- {
-     return b? gcd(b, a%b) : a;
- }
 
-int compare(const void *a, const void *b) 
+long long nCr(int n, int r)
 {
-    int num1 = *(int *)a; 
-    int num2 = *(int *)b; 
-
-    if (num1 < num2) 
-        return -1;   
-    
-    if (num1 > num2) 
-        return 1;   
-    
-    return 0;
+    if(n-r==0 || r==0)
+        return 1;
+    if(n-r==1 || r==1)
+        return n;
+    long long tmp1=1, tmp2=1;
+    for(int i=n+1; i>n-r+1; i--, tmp1=(tmp1*i)%10007);
+    for(int i=r+1; i!=1; i--, tmp2=(tmp2*i)%10007);
+    return tmp1/tmp2%10007;
 }
 
 int main(void)
 {
-    int n;
-    scanf("%d", &n);
-    int num[n], factor[1000]={0,}, count=0;
-    for(int i=0; i<n; i++)
-        scanf("%d", &num[i]);
-    qsort(num, n, sizeof(int), compare);
-
-    int tmp=num[1]-num[0];
-    for(int i=2; i<n; i++)
-        tmp=gcd(tmp, num[i]-num[i-1]);
-    int j=1;
-    for(int i=1; i*i<=tmp; i++)
-        if(tmp%i==0)
-        {
-            factor[count++]=i;
-            if(i*i!=tmp)
-                factor[count++]=tmp/i;
-        }
-
-    qsort(factor, count, sizeof(int), compare);
-    for(int i=1; i<count; i++)
-        printf("%d ", factor[i]);
+    int n,r;
+    scanf("%d%d", &n,&r);
+    printf("%lld", nCr(n,r<n-r ? r:n-r));
 }
