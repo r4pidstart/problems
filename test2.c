@@ -1,42 +1,36 @@
 #include<stdio.h>
-#include<stdlib.h>
- 
-// time exceeded
-int compare(const void *a, const void *b) 
-{
-    int num1 = *(int *)a; 
-    int num2 = *(int *)b; 
-
-    if (num1 < num2) 
-        return -1;   
-    
-    if (num1 > num2) 
-        return 1;   
-    
-    return 0;
-}
 
 int main(void)
 {
-    int n;
+    int n, count=0;
     scanf("%d", &n);
-    int num[n];
-    for(int i=0; i<n; i++)
-        scanf("%d", &num[i]);
-    qsort(num, n, sizeof(int), compare);
-
-    for(int i=2; i<num[1]+1; i++)
+    long long tmp=1;
+    for(int i=2; i<=n; i++)
     {
-        int flag=0, tmp=num[0]%i;
-        for(int j=0; j<n; j++)
+        long long tmp2=1, i_tmp=i;
+        if(i_tmp%2==0 || i_tmp%5==0)
         {
-            if(tmp!=(num[j]%i))
+            while(i_tmp%2==0 || i_tmp%5==0)
             {
-                flag=1;
-                break;
+                if(i_tmp%2==0)
+                {
+                    i_tmp/=2;
+                    tmp2*=2;
+                }
+                else if(i_tmp%5==0)
+                {
+                    i_tmp/=5;
+                    tmp2*=5;
+                }
             }
         }
-        if(flag==0)
-            printf("%d ", i);
+        tmp*=tmp2;
+        while(tmp%10==0)
+        {
+            tmp/=10;
+            count++;
+        }
     }
+
+    printf("%d", count);
 }
