@@ -1,36 +1,74 @@
 #include<stdio.h>
-
+#define max(x,y) ((x)>(y) ? (x):(y))
 int main(void)
 {
-    int n, count=0;
-    scanf("%d", &n);
-    long long tmp=1;
-    for(int i=2; i<=n; i++)
+    int n, max_i=0; scanf("%d", &n);
+    int arr[n+1]; arr[0]=0;
+
+    for(int i=1; i<n+1; i++)
     {
-        long long tmp2=1, i_tmp=i;
-        if(i_tmp%2==0 || i_tmp%5==0)
+        scanf("%d", &arr[i]);
+        max_i=max(arr[i], max_i);
+    }
+
+    int stack[max_i], k=2, top=1; stack[0]=1;
+    for(int i=1; i<n+1; i++)
+    {
+        if(top==0)
         {
-            while(i_tmp%2==0 || i_tmp%5==0)
+            stack[top++]=k++;
+        }
+        if(stack[top-1]<arr[i])
+        {
+            while(k!=arr[i]+1)
             {
-                if(i_tmp%2==0)
+                stack[top++]=k++;
+            }
+            top--;
+        }
+        else // stack[top]<=arr[i]
+        {
+            while(stack[top-1]!=arr[i])
+            {
+                top--;
+                if(top<0)
                 {
-                    i_tmp/=2;
-                    tmp2*=2;
-                }
-                else if(i_tmp%5==0)
-                {
-                    i_tmp/=5;
-                    tmp2*=5;
+                    printf("NO");
+                    return 0;
                 }
             }
-        }
-        tmp*=tmp2;
-        while(tmp%10==0)
-        {
-            tmp/=10;
-            count++;
+            top--;
         }
     }
 
-    printf("%d", count);
+    k=2, top=1; stack[0]=1;
+    printf("+\n");
+    for(int i=1; i<n+1; i++)
+    {
+        if(top==0)
+        {
+            stack[top++]=k++;
+            printf("+\n");
+        }
+        if(stack[top-1]<arr[i])
+        {
+            while(k!=arr[i]+1)
+            {
+                stack[top++]=k++;
+                printf("+\n");
+            }
+            printf("-\n");
+            top--;
+        }
+        else // stack[top]<=arr[i]
+        {
+            while(stack[top-1]!=arr[i])
+            {
+                printf("-\n");
+                top--;
+            }
+            printf("-\n");
+            top--;
+        }
+    }
 }

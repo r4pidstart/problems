@@ -1,3 +1,5 @@
+// https://www.acmicpc.net/problem/17298
+// 2021-03-19 02:19:03 328ms
 #include<stdio.h>
 #include<string.h>
 int main(void)
