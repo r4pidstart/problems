@@ -1,6 +1,6 @@
 // https://algospot.com/judge/problem/read/FESTIVAL
 // dp를 이용해 y:빌린 첫 날짜, x:빌린 마지막 날짜를 순차적으로 테이블에 채움
-// 104ms
+// 2021-03-17 23:50:50 104ms
 #include<stdio.h>
 #include<string.h>
 int main(void)
