@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/11866
+// 2021-03-20 02:48:45 0ms
 #include<stdio.h>
 int main(void)
 {
@@ -11,7 +12,7 @@ int main(void)
     while(n--)
     {
         for(int i=1; i<k; i++)
-            queue[rear++]=queue[front++]; // push(pop) * k
+            queue[rear++]=queue[front++]; // push(pop) * (k-1)
         printf("%d, ", queue[front++]); // pop
     }
     printf("%d>", queue[front]);
