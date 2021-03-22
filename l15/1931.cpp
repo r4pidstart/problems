@@ -1,6 +1,7 @@
 #include<iostream>
 #include<utility>
 #include<algorithm>
+
 int main(void)
 {
     int n;
