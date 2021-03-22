@@ -1,7 +1,6 @@
 #include<iostream>
 #include<utility>
 #include<algorithm>
-// using c++ to use "pair"
 int main(void)
 {
     int n;
