@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/10830
+// 2021-03-23 03:20:31 0ms
 #include<iostream>
 #include<cstring>
 using namespace std;
