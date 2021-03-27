@@ -1,41 +1,37 @@
 
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
-#define max(a,b) ((a)>(b)?(a):(b))
-#define ll long long
-
-vector<ll> arr;
 
 int main(void)
 {
-    ll k, n, max_l=0; scanf("%lld%lld", &k, &n);
-    arr.resize(k);
-    for(ll i=0; i<k; i++)
-    {
-        scanf("%lld", &arr[i]);
-        max_l=max(max_l, arr[i]);
-    }
-    ll res=0, start=1, end=max_l;
-    while(start<=end)
-    {
-        ll mid=(start+end)/2;
-        ll count=0;
+    int n, c; scanf("%d%d", &n, &c);
+    vector<int> arr(n);
+    for(int i=0; i<n; i++)
+        scanf("%d", &arr[i]);
 
-        for(int i=0; i<k; i++)
+    sort(arr.begin(), arr.end()); 
+
+    int end=arr[n-1]-arr[0], start=1;
+    while(end-start!=1) // 최소 거리를 기준으로 이분탐색
+    {
+        int mid=(end+start)/2;
+        int require=c-1, prev=1; // 첫 집엔 무조건 설치
+        
+        for(int i=1; i<n; i++) // 주어진 거리로 공유기를 몇 개 놓을 수 있는지 확인
         {
-            count+=arr[i]/mid;
-            if(count>=n)
-                break;
+            if(arr[i]-prev>=mid) 
+            {
+                require--;
+                prev=arr[i];
+            }
         }
-        if(count>=n)
-        {
-            start=mid+1;
-            res=mid;
-        }
+        
+        if(require>0)
+            end=mid;
         else
-            end=mid-1;
+            start=mid;
     }
-
-    printf("%lld", res);
+    printf("%d", start);
 }
