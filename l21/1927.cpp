@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/1927
+// 2021-03-29 00:50:08 24ms
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -23,7 +24,7 @@ int append(int target, vector<int> &hip)
 
 int print_and_remove(vector<int> &hip)
 {
-    printf("%d\n", hip[1]);
+    printf("%d\n", -1*hip[1]);
     hip[1]=hip[hip.size()-1];
     hip.pop_back();
 
@@ -76,7 +77,7 @@ int main(void)
             else
                 print_and_remove(hip);
         else
-            append(tmp, hip);
+            append(-1*tmp, hip);
     }
     return 0;
 }
