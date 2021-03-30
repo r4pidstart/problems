@@ -4,16 +4,16 @@
 #include<vector>
 using namespace std;
 
-int append(int target, vector<int> &hip)
+int append(int target, vector<int> &heap)
 {
-    int index=hip.size();
-    hip.push_back(target);
+    int index=heap.size();
+    heap.push_back(target);
     
     while(index>1)
     {
-        if(hip[index/2]<hip[index])
+        if(heap[index/2]<heap[index])
         {
-            swap(hip[index/2],hip[index]);
+            swap(heap[index/2],heap[index]);
             index/=2;
         }
         else
@@ -22,39 +22,39 @@ int append(int target, vector<int> &hip)
     return 0;
 }
 
-int print_and_remove(vector<int> &hip)
+int print_and_remove(vector<int> &heap)
 {
-    printf("%d\n", -1*hip[1]);
-    hip[1]=hip[hip.size()-1];
-    hip.pop_back();
+    printf("%d\n", -1*heap[1]);
+    heap[1]=heap[heap.size()-1];
+    heap.pop_back();
 
-    int size=hip.size()-1, index=1;
+    int size=heap.size()-1, index=1;
     while(index*2<=size)
     {
-        if(index*2+1>size && hip[index*2]>hip[index])
+        if(index*2+1>size && heap[index*2]>heap[index])
         // index*2+1이 없을 경우
         {
-            swap(hip[index*2], hip[index]);
+            swap(heap[index*2], heap[index]);
             index=index*2;
         }
         else if(index*2+1>size)
             return 0;
         else
         {
-            if(hip[index*2]>hip[index*2+1])
+            if(heap[index*2]>heap[index*2+1])
             {
-                if(hip[index*2]>hip[index])
+                if(heap[index*2]>heap[index])
                 {
-                    swap(hip[index*2], hip[index]);
+                    swap(heap[index*2], heap[index]);
                     index=index*2;
                 }
                 else
                     return 0;
             }
             else
-                if(hip[index*2+1]>hip[index])
+                if(heap[index*2+1]>heap[index])
                 {
-                    swap(hip[index*2+1], hip[index]);
+                    swap(heap[index*2+1], heap[index]);
                     index=index*2+1;
                 }
                 else
@@ -67,17 +67,17 @@ int print_and_remove(vector<int> &hip)
 int main(void)
 {
     int n, tmp; scanf("%d", &n);
-    vector<int> hip(1,0);
+    vector<int> heap(1,0);
     for(int i=1; i<=n; i++)
     {
         scanf("%d", &tmp);
         if(tmp==0)
-            if(hip.size()==1)
+            if(heap.size()==1)
                 printf("0\n");
             else
-                print_and_remove(hip);
+                print_and_remove(heap);
         else
-            append(-1*tmp, hip);
+            append(-1*tmp, heap);
     }
     return 0;
 }
