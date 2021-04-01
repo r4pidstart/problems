@@ -1,5 +1,5 @@
 // https://www.acmicpc.net/problem/11049
-// 2021-04-01 22:32:51 68ms
+// 2021-04-01 22:32:51 40ms
 #include<iostream>
 #include<vector>
 #include<climits>
@@ -9,9 +9,9 @@ using namespace std;
 int main(void)
 {
     int n; scanf("%d", &n);
-    vector<vector<pair<int,int>>> size(n+1, vector<pair<int,int>>(n+1)); // 행렬 크기
+    vector<pair<int,int>> size(n+1);
     for(int i=1; i<=n; i++)
-        scanf("%d%d", &size[i][i].first, &size[i][i].second);
+        scanf("%d%d", &size[i].first, &size[i].second);
     
     vector<vector<int>> memo(n+1,vector<int>(n+1,0)); // 횟수
 
@@ -19,16 +19,9 @@ int main(void)
         for(int i=1; i+r<=n; i++) // 시작점
         {
             memo[i][i+r]=INT_MAX;
-            for(int mid=i; mid<i+r; mid++)
-            {            
-                int tmp=memo[i][mid]+memo[mid+1][i+r]+(size[i][mid].first*size[i][mid].second*size[mid+1][i+r].second);
-                if(memo[i][i+r]>tmp)
-                {
-                    memo[i][i+r]=tmp;
-                    size[i][i+r].first=size[i][mid].first;
-                    size[i][i+r].second=size[mid+1][i+r].second;
-                }
-            }
+            for(int mid=i; mid<i+r; mid++)  
+                memo[i][i+r]=min(memo[i][i+r],
+                                 memo[i][mid]+memo[mid+1][i+r]+(size[i].first*size[mid].second*size[i+r].second));
         }
 
     printf("%d", memo[1][n]);
