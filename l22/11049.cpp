@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/11049
+// 2021-04-01 22:32:51 68ms
 #include<iostream>
 #include<vector>
 #include<climits>
