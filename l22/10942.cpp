@@ -1,7 +1,6 @@
 // https://www.acmicpc.net/problem/10942
 // 2021-04-02 23:04:50 316ms
 #include<iostream>
-#include<string.h>
 using namespace std;
 
 int main(void)
