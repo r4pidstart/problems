@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/7579
+// 2021-04-07 02:47:11 0ms
 #include<iostream>
 #include<vector>
 using namespace std;
