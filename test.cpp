@@ -1,42 +1,44 @@
 
 #include<iostream>
+#include<stdio.h>
 #include<queue>
+#include<cstring>
 using namespace std;
 
-const int way[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+const int way[8][2] = {{2,1}, {2,-1}, {-2,1}, {-2,-1}, {1,2}, {-1,2}, {1,-2}, {-1,-2}};
 
 int main(void)
 {
-    int n,m; scanf("%d%d", &n,&m);
-    int arr[n][m]={};
-    getchar(); // remove \n
-    for(int i=0; i<n; i++)
+    int t; scanf("%d", &t);
+    int arr[300][300];
+    queue<pair<int,int> > bfs;
+    for(int z=0; z<t; z++)
     {
-        for(int j=0; j<m; j++)
-            arr[i][j]=getchar();
-        getchar(); // remove \n
-    }
-    
-    queue<int> bfs;
-    bfs.push(0);
-    while(bfs.front()!=(m*n-1))
-    // 도착하면 종료
-    {
-        int x=bfs.front()/m, y=bfs.front()%m;
-        bfs.pop();
+        while(!bfs.empty())
+            bfs.pop();
+        memset(arr,0,sizeof(int)*300*300);
+        // 초기화
+        int i,st_x,st_y,tar_x,tar_y; 
+        scanf("%d%d%d%d%d", &i,&st_x,&st_y,&tar_x,&tar_y);
+        bfs.push({st_x, st_y});
+        arr[st_x][st_y]=1;
 
-        for(int w=0; w<4; w++)
+        while(bfs.front().first!=tar_x || bfs.front().second!=tar_y)
         {
-            int nx=x+way[w][0], ny=y+way[w][1];
-            if(nx>=0 && nx<n && ny>=0 && ny<m)
+            pair<int,int> now=bfs.front();
+            bfs.pop();
+            for(int w=0; w<8; w++)
             {
-                if(arr[nx][ny]=='1')
-                {
-                    bfs.push(nx*m+ny);
-                    arr[nx][ny]=arr[x][y]+1;
-                }
+                int nx=now.first+way[w][0], ny=now.second+way[w][1];
+                if(nx>=0 && nx<i && ny>=0 && ny<i)
+                    if(arr[nx][ny]==0)
+                    {
+                        bfs.push({nx,ny});
+                        arr[nx][ny]=arr[now.first][now.second]+1;
+                    }
             }
         }
-    }        
-    printf("%d", arr[n-1][m-1]-'0');
+        printf("%d\n", arr[bfs.front().first][bfs.front().second]-1);
+    }
+    return 0;
 }
