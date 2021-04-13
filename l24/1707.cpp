@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/1707
+// 2021-04-13 20:52:44 320ms
 #include<iostream>
 #include<queue>
 #include<vector>
@@ -13,7 +14,6 @@ queue<int> bfs_q;
 int reset(int v)
 {
     memset(arr+1,0,sizeof(int)*v);
-    bfs_q=queue<int>();
     for(int i=1; i<=v; i++)
         dest[i].clear();
     return 0;
@@ -38,13 +38,23 @@ int bfs(int target)
                     arr[next]=1;
                 bfs_q.push(next);
             }
-            else // if(arr[next]!=0)
-            {
-                if(arr[now]==arr[next])
-                    return 1;
-            }
         }
     }
+    return 0;
+}
+
+int check(int v)
+{
+    for(int i=1; i<v; i++)
+    {
+        for(int next : dest[i])
+            if(arr[next]==arr[i])
+            {
+                printf("NO\n");
+                return 0;
+            }
+    }
+    printf("YES\n");
     return 0;
 }
 
@@ -55,7 +65,7 @@ int main(void)
     {
         int v,e; scanf("%d%d", &v,&e);
         reset(v);
-        int one,two,flag=0;
+        int one,two;
         for(int i=0; i<e; i++)
         {
             scanf("%d%d", &one,&two);
@@ -65,15 +75,9 @@ int main(void)
         for(int i=1; i<=v; i++)
         {
             if(arr[i]==0) // 방문하지 않았으면
-                if(bfs(i)==1)
-                {
-                    printf("NO\n");
-                    flag=1;
-                    break;
-                }
+                bfs(i);
         }
-        if(flag==0)
-            printf("YES\n");
+        check(v);
     }
     return 0;
 }
