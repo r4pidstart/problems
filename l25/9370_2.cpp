@@ -1,15 +1,13 @@
-
+// https://www.acmicpc.net/problem/9370
+// 2021-04-16 22:23:12 544ms
 #include<iostream>
 #include<queue>
 #include<vector>
 #include<algorithm>
-#include<string.h>
 #define INF 0x7FFFFFFF
-#define min(x,y) ((x)<(y) ? (x):(y))
 using namespace std;
 
 vector<pair<int,int> > dest[2001];
-int route[2001]={};
 
 int dijkstra(int start, int end)
 {
@@ -25,9 +23,6 @@ int dijkstra(int start, int end)
         int now=pq.top().first, total_dist=pq.top().second;
         pq.pop();
 
-        if(dist[now]<total_dist)
-            continue;
-            
         for(auto it=dest[now].begin(); it!=dest[now].end(); it++)
         {
             int next=it->first, n_dist=it->second;
@@ -35,11 +30,10 @@ int dijkstra(int start, int end)
             {
                 dist[next]=total_dist+n_dist;
                 pq.push({next, dist[next]});
-                route[next]=now;
             }
         }
     }
-    return 0;
+    return dist[end]==INF ? 0 : dist[end];
 }
 
 int main(void)
@@ -56,29 +50,24 @@ int main(void)
         for(int i=0; i<m; i++)
         {
             int a,b,c; scanf("%d%d%d", &a,&b,&c);
-            dest[a].push_back({b,c});
-            dest[b].push_back({a,c});
+            if((a==v1 && b==v2) || (a==v2 && b==v1))
+            {
+                dest[a].push_back({b,c*2-1});
+                dest[b].push_back({a,c*2-1});
+            }
+            else
+            {
+            dest[a].push_back({b,c*2});
+            dest[b].push_back({a,c*2});
+            }
         }
 
         vector<int> possible_dest;
         for(int i=0; i<t; i++)
         {
-            memset(route, 0, sizeof(int)*(n+1));
             int tmp; scanf("%d", &tmp);
-            dijkstra(start,tmp);
-            
-            for(int it=tmp; it!=start; it=route[it])
-            {
-                if(route[it]==0)
-                    break;
-                if(it==v1 || it==v2)
-                {
-                    if((it==v1 && route[it]==v2) || (it==v2 && route[it]==v1))
-                    // 경로에 v1-v2가 포함되어 있으면
-                        possible_dest.push_back(tmp);
-                    break;
-                }
-            }
+            if(dijkstra(start,tmp)%2==1)
+                possible_dest.push_back(tmp);
         }
 
         sort(possible_dest.begin(), possible_dest.end());
