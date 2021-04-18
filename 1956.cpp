@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/1956
+// 2021-04-19 04:07:38 116ms
 #include<iostream>
 #include<vector>
 #define INF 0x6FFFFFF
