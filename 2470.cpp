@@ -1,3 +1,5 @@
+// https://www.acmicpc.net/problem/2470
+// 2021-04-21 07:33:00 24ms
 #include<iostream>
 #include<vector>
 #include<algorithm>
