@@ -1,91 +1,63 @@
-
-#include<bits/stdc++.h>
+// https://www.acmicpc.net/problem/7576
+// 2021-04-10 20:43:06 128ms
+#include<iostream>
+#include<queue>
 using namespace std;
-#define ll long long
+#define max(x,y) ((x)>(y)?(x):(y))
+
+const int way[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
 
 int main(void)
 {
-    int n,c;
-    scanf("%d%d", &n,&c);
-    
-    vector<ll> list1, list2;
-    for(int i=0; i<n/2; i++)
-    {
-        int tmp; scanf("%d", &tmp);
-        list1.push_back(tmp);
-    }
+    int m,n; scanf("%d%d", &m,&n);
+    int arr[n][m]={};
+    for(int i=0; i<n; i++)
+        for(int j=0; j<m; j++)
+            scanf("%d", &arr[i][j]);
 
-    for(int i=0; i<n-n/2; i++)
-    {
-        int tmp; scanf("%d", &tmp);
-        list2.push_back(tmp);
-    }
-
-    vector<int> memo1, memo2;
-
-    for(int i=0; i<1<<(n/2); i++)
-    {
-        ll sum=0;
-        for(int j=0; j<n/2; j++)
-            if(i & 1<<j)
-                sum+=list1[j];
-        if (sum<=c)
-            memo1.push_back(sum);
-    }
-
-    for(int i=0; i<(1<<n-n/2); i++)
-    {
-        ll sum=0;
-        for(int j=0; j<n-n/2; j++)
-            if(i & 1<<j)
-                sum+=list2[j];
-        if (sum<=c)
-            memo2.push_back(sum);
-    }
-
-    sort(memo1.begin(), memo1.end());
-    sort(memo2.begin(), memo2.end());
-    
-    vector<pair<int,int> > dp1, dp2;
-
-    int prev=0, count=0;
-    for(int target : memo1)
-    {
-        if(prev!=target)
+    queue<pair<int,int>> bfs;
+    int count=0;
+    for(int i=0; i<m*n; i++)
+        if(arr[i/m][i%m]==1)
         {
-            dp1.push_back({prev,count});
-            count=1;
-            prev=target;
-        }
-        else
+            bfs.push({i/m,i%m});
             count++;
-    }
-    dp1.push_back({prev,count});
-
-    prev=0, count=0;
-    for(int target : memo2)
-    {
-        if(prev!=target)
-        {
-            dp2.push_back({prev,count});
-            count=1;
-            prev=target;
         }
-        else
-            count++;
-    }
-    dp2.push_back({prev,count});
-
-    int ans=0;
-    for(auto it=dp1.begin(); it!=dp1.end(); it++)
+    
+    if(count==0)
     {
-        for(auto it2=dp2.begin(); it2!=dp2.end(); it2++)
+        printf("-1");
+        return 0;
+    }
+
+    while(!bfs.empty())
+    {
+        int x=bfs.front().first, y=bfs.front().second;
+        bfs.pop();
+        for(int w=0; w<4; w++)
         {
-            if(it->first + it2->first <= c)
-                ans+=(it->second*it2->second);
+            int nx=x+way[w][0], ny=y+way[w][1];
+            if(nx>=0 && nx<n && ny>=0 && ny<m)
+            {
+                if(arr[nx][ny]==0)
+                {
+                    bfs.push({nx, ny});
+                    arr[nx][ny]=arr[x][y]+1;
+                }
+            }
+        }
+    }
+
+    int days=0;
+    for(int i=0; i<n; i++)
+        for(int j=0; j<m; j++)
+            if(arr[i][j]==0)
+            {
+                printf("-1");
+                return 0;
+            }
             else
-                break;
-        }
-    }
-    printf("%d", ans);
-    }
+                days=max(days,arr[i][j]);
+    
+    printf("%d", days-1);
+}

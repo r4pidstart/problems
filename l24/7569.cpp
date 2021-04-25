@@ -29,7 +29,7 @@ int main(void)
     
     if(count==0)
     {
-        printf("0");
+        printf("-1");
         return 0;
     }
 
