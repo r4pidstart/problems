@@ -4,46 +4,38 @@ using namespace std;
 
 int main(void)
 {
-    int n; scanf("%d", &n);
-    int arr[n+1]={};
-    vector<pair<int, int> > dp(n+1,{0,0});
-    // subsequence size / prev index
-    vector<int> dp_num(1,INT32_MIN), dp_index(1,0);
-
-    for(int i=1; i<=n; i++)
-        scanf("%d", &arr[i]);
-    
-    pair<int,int> max={0,0};
-    // max_length / index
-    for(int i=1; i<=n; i++)
+    string s1, s2;
+    cin >> s1 >> s2;
+    vector<vector<int> > dp(s1.length()+1, vector<int> (s2.length()+1, 0));
+    vector<int> ans;
+    int size1=s1.length(), size2=s2.length();
+    for(int i=1; i<=size1; i++)
     {
-        int index=dp_index[lower_bound(dp_num.begin(), dp_num.end(), arr[i])-dp_num.begin()-1];
-        // 이분탐색을 이용하여 찾은 주어진 수보다 작으면서 가장 큰 인덱스
-        dp[i]={dp[index].first+1, index};
-        if(dp_num[dp[i].first]>arr[i])
+        for(int j=1; j<=size2; j++)
         {
-            dp_num[dp[i].first]=arr[i];
-            dp_index[dp[i].first]=i;
-        }
-        if(dp[i].first > max.first)
-        {
-            max={max.first+1,i};
-            dp_num.push_back(arr[i]);
-            dp_index.push_back(i);
+            if(s1[i]==s2[j])
+            {
+                dp[i][j]=dp[i-1][j-1]+1;
+            }
+            else
+                dp[i][j]=max(dp[i-1][j], dp[i][j-1]);
         }
     }
-
-    printf("%d\n", max.first);
-    stack<int> ans;
-    int pointer=max.second;
-    while(pointer!=0)
+    printf("%d\n", dp[size1][size2]);
+    int x=size1, y=size2;
+    while(!dp[x][y]==0)
     {
-        ans.push(arr[pointer]);
-        pointer=dp[pointer].second;
+        if(dp[x][y]==dp[x-1][y] && x-1!=0)
+            x--;
+        else if(dp[x][y]==dp[x][y-1] && y-1!=0)
+            y--;
+        else
+        {
+            ans.push_back(s1[x]);
+            x--, y--;
+        }
     }
-    while(!ans.empty())
-    {
-        printf("%d ", ans.top());
-        ans.pop();
-    }
+    reverse(ans.begin(), ans.end());
+    for(char c : ans)
+        printf("%c", c);
 }
