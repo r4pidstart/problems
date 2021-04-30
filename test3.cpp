@@ -1,46 +1,49 @@
+// https://www.acmicpc.net/problem/2261
+// 2021-04-30 23:51:15 TLE
 
 #include<bits/stdc++.h>
 using namespace std;
-typedef struct
-{
-    int x,y;
-} coordinate;
 
-coordinate car1, car2, cases[1001];
+int dist(pair<int,int> a, pair<int,int> b)
+{
+    return (a.first-b.first)*(a.first-b.first)+(a.second-b.second)*(a.second-b.second);
+}
 
 int main(void)
 {
-    int n,n_cases; scanf("%d%d", &n, &n_cases);
-    
-    for(int i=0; i<n_cases; i++)
+    int n; scanf("%d", &n);
+    vector<vector<int> > points(20001);
+    for(int i=0; i<n; i++)
     {
-        scanf("%d%d", &cases[i].x,&cases[i].y);
-    }
-    
-    vector<int> ans;
-    int total_distance=0;
-    car1={1,1}, car2={n,n};
-
-    for(int index=0; index<n_cases; index++)
-    {
-        int car1_dist=abs(car1.x-cases[index].x)+abs(car1.y-cases[index].y),
-            car2_dist=abs(car2.x-cases[index].x)+abs(car2.y-cases[index].y);
-        if(car1_dist > car2_dist)
-        {
-            car2=cases[index];
-            total_distance+=car2_dist;
-            ans.push_back(2);
-        }
-        else
-        {
-            car1=cases[index];
-            total_distance+=car1_dist;
-            ans.push_back(1);
-        }
+        int x,y; scanf("%d%d", &x, &y);
+        points[x+10000].push_back(y);
     }
 
-    printf("%d\n", total_distance);
-    for(int num : ans)
-        printf("%d\n", num);
-    
+    // 직선 하나를 이동시킴
+    // 만나는 점을 리스트에 넣고, 리스트에 있는 점들과 거리를 비교함
+    // 리스트에 있는 점과, 직선과의 최단거리가 최소거리보다 클 때에는 리스트에서 제거함
+    deque<pair<int,int> > list;
+    int min_dist=INT32_MAX;
+    for(int x_pos=0; x_pos<20001; x_pos++)
+    {
+        if(points[x_pos].size()==0)
+            continue;
+
+        // 후보가 될 수 없는 점들을 리스트에서 제거
+        while((x_pos-list.front().first)*(x_pos-list.front().first)>=min_dist)
+        {
+            int pop_size=points[list.front().first].size();
+            while(pop_size--)
+                list.pop_front();
+        }
+
+        for(auto y_it=points[x_pos].begin(), points_end=points[x_pos].end(); y_it!=points_end; y_it++)
+        {
+            for(auto it=list.begin(), list_end=list.end(); it!=list_end; it++)
+                min_dist=min(min_dist, dist(*it, make_pair(x_pos, *y_it)));
+            list.push_back(make_pair(x_pos, *y_it));
+        }
+    }
+
+    printf("%d", min_dist);
 }

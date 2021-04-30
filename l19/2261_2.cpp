@@ -29,16 +29,16 @@ int main(void)
         if(points[x_pos].size()==0)
             continue;
 
-        while(x_pos - list.front().first >= min_dist)
+        while((x_pos-list.front().first)*(x_pos-list.front().first)>=min_dist)
         {
             int pop_size=points[list.front().first].size();
             while(pop_size--)
                 list.pop_front();
         }
 
-        for(auto y_it=points[x_pos].begin(); y_it!=points[x_pos].end(); y_it++)
+        for(auto y_it=points[x_pos].begin(), points_end=points[x_pos].end(); y_it!=points_end; y_it++)
         {
-            for(auto it=list.begin(); it!=list.end(); it++)
+            for(auto it=list.begin(), list_end=list.end(); it!=list_end; it++)
                 min_dist=min(min_dist, dist(*it, make_pair(x_pos, *y_it)));
             list.push_back(make_pair(x_pos, *y_it));
         }
