@@ -1,79 +1,45 @@
 
 #include<bits/stdc++.h>
 using namespace std;
+#define it vector<int>::iterator
 
-vector<char> tree(2,0); 
-vector<int> pos(27,0);
-queue<tuple<int, int, int> > tmp;
-int count=2;
+// 후위 배열 맨 뒤 번호를 중위 배열에서 찾기
+// 찾은 번호를 일단 ans에 푸시.
+// 찾은 번호를 기준으로 앞 뒤로 나눠 다시 시행
+// 앞 뒤로 나눌 때, 원소가 하나라면 출력, 두개라면 역순으로 출력
+vector<int> in, post, in_pos(100000,-1);
 
-void insert(int a, int b, int c)
+void solution(int in_1, int in_2, int post_1, int post_2)
 {
-    static int count=2;
-    int pointer=a-'A'+1;
-    if(pos[pointer]!=0)
+    if(in_2-in_1==1)
     {
-        int parent=pos[pointer];
-        int size=tree.size();
-        if(size-1<pointer*2)
-        {
-            tree.resize(size+count);
-            count*=2;
-        }
-        if(b!='.')
-            tree[parent*2]=b, pos[b-'A'+1]=parent*2;
-        if(c!='.')
-            tree[parent*2+1]=c, pos[c-'A'+1]=parent*2+1;
+        printf("%d ", in[in_1]);
+        return;
     }
-    else
-        tmp.push({a,b,c});
-}
-
-void print_preorder(int now)
-{
-    printf("%c", tree[now]);
-    if(tree[now*2]!=0)
-        print_preorder(now*2);
-    if(tree[now*2+1]!=0)
-        print_preorder(now*2+1);
-}
-
-void print_inorder(int now)
-{
-    if(tree[now*2]!=0)
-        print_inorder(now*2);
-    printf("%c", tree[now]);
-    if(tree[now*2+1]!=0)
-        print_inorder(now*2+1);
-}
-
-void print_postorder(int now)
-{
-    if(tree[now*2]!=0)
-        print_postorder(now*2);
-    if(tree[now*2+1]!=0)
-        print_postorder(now*2+1);
-    printf("%c", tree[now]);
+    if(in_2-in_1==2)
+    {
+        printf("%d %d ", in[in_1+1], in[in_1]);
+        return;
+    }
+    int root=in_pos[post[post_2-1]];
+    printf("%d ", in[root]);
+    solution(in_1, root, post_1, post_1+root-in_1-1);
+    solution(root+1, in_2, post_1+root-in_1, post_2-1);
 }
 
 int main(void)
 {
     int n; scanf("%d", &n);
-    tree[1]='A', pos[1]=1;
+    in.resize(n), post.resize(n);
     for(int i=0; i<n; i++)
     {
-        char a,b,c; scanf("\n%c %c %c", &a,&b,&c);
-        insert(a,b,c);
+        int tmp; scanf("%d", &tmp);
+        in[i]=tmp, in_pos[tmp]=i;
     }
-    while(!tmp.empty())
+    for(int i=0; i<n; i++)
     {
-        insert(get<0>(tmp.front()), get<1>(tmp.front()), get<2>(tmp.front()));
-        tmp.pop();
+        int tmp; scanf("%d", &tmp);
+        post[i]=tmp;
     }
-
-    print_preorder(1);
-    printf("\n");
-    print_inorder(1);
-    printf("\n");
-    print_postorder(1);
+    solution(0, n, 0, n);
 }

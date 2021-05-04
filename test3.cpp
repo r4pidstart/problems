@@ -1,54 +1,42 @@
-
 #include<bits/stdc++.h>
 using namespace std;
+#define it vector<int>::iterator
+vector<int> ans, in, post;
 
-int dfs(int start, int now, int prev, long long d, vector<vector<pair<int,int> > > &tree, map<pair<int,int>, pair<long long, int> > &dist)
+int solution(it in_1, it in_2, it post_1, it post_2)
 {
-    if(tree[now].size()==1 && tree[now][0].first==prev)
+    if(in_2-in_1==1)
     {
-        if(dist[{start,now}].first==0)
-            dist[{start,now}]={d,now};
-        else
-            min(dist[{start,now}], {d,now});
+        ans.push_back(*in_1);
         return 0;
     }
-
-    for(auto it=tree[now].begin(); it!=tree[now].end(); it++)
+    if(in_2-in_1==2)
     {
-        if(it->first != prev)
-            dfs(start, it->first, now, d+it->second, tree, dist);
+        ans.push_back(*(in_1+1));
+        ans.push_back(*in_1);
+        return 0;
     }
-    return 0;
+    int root=find(in_1, in_2, *(post_2-1))-in_1;
+    ans.push_back(in_1[root]);
+    solution(in_1, in_1+root, post_1, post_1+root);
+    solution(in_1+root+1, in_2, post_1+root, post_2-1);
 }
+
 int main(void)
 {
-    int v; scanf("%d", &v);
-    vector<vector< pair<int, int> > > tree(v+1);
-    // next, distance
-    for(int i=0; i<v; i++)
+    int n; scanf("%d", &n);
+    in.resize(n), post.resize(n);
+    for(int i=0; i<n; i++)
     {
-        int a, b, d; scanf("%d", &a);
-        vector<int> tmp;
-        while(scanf("%d", &b))
-        {
-            if(b==-1) break;
-            scanf("%d", &d);
-            tree[a].push_back({b,d});
-        }
+        int tmp; scanf("%d", &tmp);
+        in[i]=tmp;
     }
-
-    long long ans=0;
-    map<pair<int,int>, pair<long long,int> > dist;
-    dfs(1, 1, 0, 0, tree, dist);
-    int target, d=0; // 기준점으로부터 가장 먼 점 찾기
-    for(auto it=dist.begin(); it!=dist.end(); it++)
-        if(d<it->second.first)
-            target=it->second.second, d=it->second.first;
-
-    dist.clear();
-    dfs(target, target, 0, 0, tree, dist);
-    // 기준점으로부터 가장 먼 점으로부터 가장 먼 점과의 거리 구하기
-    for(auto it=dist.begin(); it!=dist.end(); it++)
-        ans=max(ans, it->second.first);
-    printf("%lld", ans);
+    for(int i=0; i<n; i++)
+    {
+        int tmp; scanf("%d", &tmp);
+        post[i]=tmp;
+    }
+    solution(in.begin(), in.end(), post.begin(), post.end());
+    for(int target : ans)
+        printf("%d ", target);
 }
