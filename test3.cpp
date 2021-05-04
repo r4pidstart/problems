@@ -1,49 +1,54 @@
-// https://www.acmicpc.net/problem/2261
-// 2021-04-30 23:51:15 TLE
 
 #include<bits/stdc++.h>
 using namespace std;
 
-int dist(pair<int,int> a, pair<int,int> b)
+int dfs(int start, int now, int prev, long long d, vector<vector<pair<int,int> > > &tree, map<pair<int,int>, pair<long long, int> > &dist)
 {
-    return (a.first-b.first)*(a.first-b.first)+(a.second-b.second)*(a.second-b.second);
-}
+    if(tree[now].size()==1 && tree[now][0].first==prev)
+    {
+        if(dist[{start,now}].first==0)
+            dist[{start,now}]={d,now};
+        else
+            min(dist[{start,now}], {d,now});
+        return 0;
+    }
 
+    for(auto it=tree[now].begin(); it!=tree[now].end(); it++)
+    {
+        if(it->first != prev)
+            dfs(start, it->first, now, d+it->second, tree, dist);
+    }
+    return 0;
+}
 int main(void)
 {
-    int n; scanf("%d", &n);
-    vector<vector<int> > points(20001);
-    for(int i=0; i<n; i++)
+    int v; scanf("%d", &v);
+    vector<vector< pair<int, int> > > tree(v+1);
+    // next, distance
+    for(int i=0; i<v; i++)
     {
-        int x,y; scanf("%d%d", &x, &y);
-        points[x+10000].push_back(y);
-    }
-
-    // 직선 하나를 이동시킴
-    // 만나는 점을 리스트에 넣고, 리스트에 있는 점들과 거리를 비교함
-    // 리스트에 있는 점과, 직선과의 최단거리가 최소거리보다 클 때에는 리스트에서 제거함
-    deque<pair<int,int> > list;
-    int min_dist=INT32_MAX;
-    for(int x_pos=0; x_pos<20001; x_pos++)
-    {
-        if(points[x_pos].size()==0)
-            continue;
-
-        // 후보가 될 수 없는 점들을 리스트에서 제거
-        while((x_pos-list.front().first)*(x_pos-list.front().first)>=min_dist)
+        int a, b, d; scanf("%d", &a);
+        vector<int> tmp;
+        while(scanf("%d", &b))
         {
-            int pop_size=points[list.front().first].size();
-            while(pop_size--)
-                list.pop_front();
-        }
-
-        for(auto y_it=points[x_pos].begin(), points_end=points[x_pos].end(); y_it!=points_end; y_it++)
-        {
-            for(auto it=list.begin(), list_end=list.end(); it!=list_end; it++)
-                min_dist=min(min_dist, dist(*it, make_pair(x_pos, *y_it)));
-            list.push_back(make_pair(x_pos, *y_it));
+            if(b==-1) break;
+            scanf("%d", &d);
+            tree[a].push_back({b,d});
         }
     }
 
-    printf("%d", min_dist);
+    long long ans=0;
+    map<pair<int,int>, pair<long long,int> > dist;
+    dfs(1, 1, 0, 0, tree, dist);
+    int target, d=0; // 기준점으로부터 가장 먼 점 찾기
+    for(auto it=dist.begin(); it!=dist.end(); it++)
+        if(d<it->second.first)
+            target=it->second.second, d=it->second.first;
+
+    dist.clear();
+    dfs(target, target, 0, 0, tree, dist);
+    // 기준점으로부터 가장 먼 점으로부터 가장 먼 점과의 거리 구하기
+    for(auto it=dist.begin(); it!=dist.end(); it++)
+        ans=max(ans, it->second.first);
+    printf("%lld", ans);
 }

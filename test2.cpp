@@ -2,45 +2,78 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int dist(pair<int,int> a, pair<int,int> b)
+vector<char> tree(2,0); 
+vector<int> pos(27,0);
+queue<tuple<int, int, int> > tmp;
+int count=2;
+
+void insert(int a, int b, int c)
 {
-    return (a.first-b.first)*(a.first-b.first)+(a.second-b.second)*(a.second-b.second);
+    static int count=2;
+    int pointer=a-'A'+1;
+    if(pos[pointer]!=0)
+    {
+        int parent=pos[pointer];
+        int size=tree.size();
+        if(size-1<pointer*2)
+        {
+            tree.resize(size+count);
+            count*=2;
+        }
+        if(b!='.')
+            tree[parent*2]=b, pos[b-'A'+1]=parent*2;
+        if(c!='.')
+            tree[parent*2+1]=c, pos[c-'A'+1]=parent*2+1;
+    }
+    else
+        tmp.push({a,b,c});
+}
+
+void print_preorder(int now)
+{
+    printf("%c", tree[now]);
+    if(tree[now*2]!=0)
+        print_preorder(now*2);
+    if(tree[now*2+1]!=0)
+        print_preorder(now*2+1);
+}
+
+void print_inorder(int now)
+{
+    if(tree[now*2]!=0)
+        print_inorder(now*2);
+    printf("%c", tree[now]);
+    if(tree[now*2+1]!=0)
+        print_inorder(now*2+1);
+}
+
+void print_postorder(int now)
+{
+    if(tree[now*2]!=0)
+        print_postorder(now*2);
+    if(tree[now*2+1]!=0)
+        print_postorder(now*2+1);
+    printf("%c", tree[now]);
 }
 
 int main(void)
 {
     int n; scanf("%d", &n);
-    vector<vector<int> > points(20001);
+    tree[1]='A', pos[1]=1;
     for(int i=0; i<n; i++)
     {
-        int x,y; scanf("%d%d", &x, &y);
-        points[x+10000].push_back(y);
+        char a,b,c; scanf("\n%c %c %c", &a,&b,&c);
+        insert(a,b,c);
     }
-
-    // 직선 하나를 이동시킴
-    // 만나는 점을 리스트에 넣고, 리스트에 있는 점들과 거리를 비교함
-    // 리스트에 있는 점과, 직선과의 최단거리가 최소거리보다 클 때에는 리스트에서 제거함
-    deque<pair<int,int> > list;
-    int min_dist=INT32_MAX;
-    for(int x_pos=0; x_pos<20001; x_pos++)
+    while(!tmp.empty())
     {
-        if(points[x_pos].size()==0)
-            continue;
-
-        while(x_pos - list.front().first >= min_dist)
-        {
-            int pop_size=points[list.front().first].size();
-            while(pop_size--)
-                list.pop_front();
-        }
-
-        for(auto y_it=points[x_pos].begin(); y_it!=points[x_pos].end(); y_it++)
-        {
-            for(auto it=list.begin(); it!=list.end(); it++)
-                min_dist=min(min_dist, dist(*it, make_pair(x_pos, *y_it)));
-            list.push_back(make_pair(x_pos, *y_it));
-        }
+        insert(get<0>(tmp.front()), get<1>(tmp.front()), get<2>(tmp.front()));
+        tmp.pop();
     }
 
-    printf("%d", min_dist);
+    print_preorder(1);
+    printf("\n");
+    print_inorder(1);
+    printf("\n");
+    print_postorder(1);
 }
