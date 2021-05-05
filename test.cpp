@@ -2,31 +2,51 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int> in, post, in_pos(100000,-1);
+vector<int> tree(1,0);
 
-void solution(int in_1, int in_2, int post_1, int post_2)
+void traversal(char now)
 {
-    if(in_1>in_2 || post_1>post_2)
-        return;
-    int root=post[post_2];
-    printf("%d ", root);
-    solution(in_1, in_pos[root]-1, post_1, post_1+in_pos[root]-in_1-1);
-    solution(in_pos[root]+1, in_2, post_1+in_pos[root]-in_1, post_2-1);
+    if(tree[now*2]!=0)
+        traversal(tree[now*2]);
+    if(tree[now*2+1]!=0)
+        traversal(tree[now*2+1]);
+    printf("%d\n", now);
+}
+
+void insert(int target)
+{
+    static int count=1;
+    int index=1;
+    if(tree[index]>target)
+        while(tree[index]>target && tree[index]!=0)
+        {
+            if(tree[2*index]==NULL)
+            {
+                tree.reserve(count);
+                count*=2;
+            }
+            index=index*2;
+        }
+    else
+        while(tree[index]<target && tree[index]!=0)
+        {
+            if(tree[2*index]==NULL)
+            {
+                tree.reserve(count);
+                count*=2;
+            }
+            index=index*2;
+        }
+    tree[index]=target;
 }
 
 int main(void)
 {
-    int n; scanf("%d", &n);
-    in.resize(n), post.resize(n);
-    for(int i=0; i<n; i++)
+    int tmp;
+    while(scanf("%d", &tmp) != EOF)
     {
-        int tmp; scanf("%d", &tmp);
-        in[i]=tmp, in_pos[tmp]=i;
+        insert(tmp);
     }
-    for(int i=0; i<n; i++)
-    {
-        int tmp; scanf("%d", &tmp);
-        post[i]=tmp;
-    }
-    solution(0, n-1, 0, n-1);
+    traversal(1);
+    
 }
