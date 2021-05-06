@@ -3,7 +3,8 @@
         "stdio.h": "c",
         "string.h": "c",
         "vector": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "*.tcc": "cpp"
     },
     "editor.fontFamily": "'D2Coding ligature', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 14
