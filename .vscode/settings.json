@@ -4,7 +4,8 @@
         "string.h": "c",
         "vector": "cpp",
         "random": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "ranges": "cpp"
     },
     "editor.fontFamily": "'D2Coding ligature', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 14

@@ -1,42 +1,56 @@
+
 #include<bits/stdc++.h>
 using namespace std;
-#define it vector<int>::iterator
-vector<int> ans, in, post;
 
-int solution(it in_1, it in_2, it post_1, it post_2)
+int n,w;
+vector<vector<int> > dp(1001, vector<int>(1001, -1));
+pair<int,int> event[1002]; 
+
+int get_dist(int a, int b)
 {
-    if(in_2-in_1==1)
+    return abs(event[a].first-event[b].first) + abs(event[a].second-event[b].second);
+}
+
+int solution(int one, int two)
+{
+    if(one == w || two == w) return 0;
+    int modtwo=two%1001;
+    if(dp[one][modtwo]==-1)
     {
-        ans.push_back(*in_1);
-        return 0;
+        int next=max(one,modtwo)+1;
+        int d1=solution(next, two)+get_dist(one,next),
+            d2=solution(one, next)+get_dist(next,two);
+        dp[one][two]=min(d1,d2);
     }
-    if(in_2-in_1==2)
+    return dp[one][two];
+}
+
+void get_route(int one, int two)
+{
+    if(one == w || two == w) return;
+    int modtwo=two%1001;
+    int next=max(one,modtwo)+1;
+    int test1=dp[one][next]+get_dist(two,next);
+    int test2=dp[next][two]+get_dist(one,next);
+    int target=dp[one][modtwo];
+    if(dp[one][modtwo] == dp[one][next]+get_dist(two, next))
     {
-        ans.push_back(*(in_1+1));
-        ans.push_back(*in_1);
-        return 0;
+        printf("2");
+        get_route(one, next);
     }
-    int root=find(in_1, in_2, *(post_2-1))-in_1;
-    ans.push_back(in_1[root]);
-    solution(in_1, in_1+root, post_1, post_1+root);
-    solution(in_1+root+1, in_2, post_1+root, post_2-1);
+    else
+    {
+        printf("1");
+        get_route(next, two);
+    }
 }
 
 int main(void)
 {
-    int n; scanf("%d", &n);
-    in.resize(n), post.resize(n);
-    for(int i=0; i<n; i++)
-    {
-        int tmp; scanf("%d", &tmp);
-        in[i]=tmp;
-    }
-    for(int i=0; i<n; i++)
-    {
-        int tmp; scanf("%d", &tmp);
-        post[i]=tmp;
-    }
-    solution(in.begin(), in.end(), post.begin(), post.end());
-    for(int target : ans)
-        printf("%d ", target);
+    scanf("%d%d", &n,&w);
+    event[0]={1,1}, event[1001]={n,n};
+    for(int i=0; i<w; i++)
+        scanf("%d%d", &event[i+1].first, &event[i+1].second);
+    printf("%d\n", solution(0,1001));
+    get_route(0,1001);
 }
