@@ -1,70 +1,61 @@
-
 #include<bits/stdc++.h>
 using namespace std;
 
-typedef struct _dp
-{
-    int dist, p1, p2; // 경찰차 이전 위치
-}_dp;
+vector<int> visited(500);
+vector<vector<int> > dest;
+int n,m, tree_count, flag;
 
-int n,w;
-_dp ans={INT32_MAX,0,0};
-pair<int,int> event[1002];
-vector<vector<_dp> > dp(1001, vector<_dp>(1001, {INT32_MAX, 0,0}));
-stack<int> route;
-
-int get_dist(int a, int b)
+void dfs(int now, int prev)
 {
-    return abs(event[a].first-event[b].first) + abs(event[a].second-event[b].second);
-}
-
-void dfs(int one, int two)
-{
-    int modtwo=two%1001;
-    if(one == w || two == w)
+    visited[now]++;
+    if(visited[now]!=1 || flag!=0)
     {
-        if(ans.dist > dp[one][modtwo].dist)
-            ans={dp[one][modtwo].dist, one, modtwo};
+        flag++;
         return;
     }
-    int next=max(one,modtwo)+1;
-    int dist_1=dp[one][modtwo].dist + get_dist(one,next),
-        dist_2=dp[one][modtwo].dist + get_dist(two,next);
-    if(dist_1 < dp[next][modtwo].dist)
-    {
-        dp[next][modtwo]={dist_1, one, modtwo};
-        dfs(next, two);
-    }
-    if(dist_2 < dp[one][next].dist)
-    {
-        dp[one][next]={dist_2, one, modtwo};
-        dfs(one, next);
-    }
-}
 
-void get_route(_dp now)
-{
-    if(now.p1==0 && now.p2==0)
+    if((dest[now].size()==1 && dest[now][0]==prev)|| dest[now].size()==0)
+    {
+        tree_count++;
         return;
-    if(now.p1 > dp[now.p1][now.p2].p1)
-        route.push(1);
-    else
-        route.push(2);
-    get_route(dp[now.p1][now.p2]);
+    }
+
+    for(int next : dest[now])
+        if(next!=prev)
+            dfs(next, now);
 }
 
 int main(void)
 {
-    scanf("%d%d", &n, &w);
-    event[0]={1,1}, event[1001]={n,n}, dp[0][0].dist=0;
-    for(int i=1; i<=w; i++)
-        scanf("%d%d", &event[i].first, &event[i].second);
-    dfs(0,1001);
-    get_route(ans);
-    printf("%d\n", ans.dist);
-    while(!route.empty())
+    int case_count=0;
+    while(true)
     {
-        printf("%d\n", route.top());
-        route.pop();
+        case_count++;
+        tree_count=0;
+        scanf("%d%d", &n,&m);
+        if(n==0 && m==0)
+            return 0;
+        dest.clear(), dest.resize(n+1);
+        visited.assign(n+1, 0);
+        
+        for(int i=0; i<m; i++)
+        {
+            int a,b; scanf("%d%d", &a, &b);
+            dest[a].push_back(b);
+            dest[b].push_back(a);
+        }
+
+        for(int i=1; i<=n; i++)
+        {
+            flag=0;
+            dfs(i,0);
+        }
+
+        if(tree_count==0)
+            printf("Case %d: No trees.\n", case_count);
+        else if(tree_count==1)
+            printf("Case %d: There is one tree.\n", case_count);
+        else    
+            printf("Case %d: A forest of %d trees.\n", case_count, tree_count);
     }
 }
