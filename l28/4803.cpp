@@ -1,28 +1,24 @@
+// https://www.acmicpc.net/problem/4803
+// 2021-05-08 16:29:33 44ms
 #include<bits/stdc++.h>
 using namespace std;
 
 vector<int> visited(500);
 vector<vector<int> > dest;
-int n,m, tree_count, flag;
+int n,m, tree_count;
 
-void dfs(int now, int prev)
+int dfs(int now, int prev)
 {
     visited[now]++;
-    if(visited[now]!=1 || flag!=0)
-    {
-        flag++;
-        return;
-    }
-
-    if((dest[now].size()==1 && dest[now][0]==prev)|| dest[now].size()==0)
-    {
-        tree_count++;
-        return;
-    }
-
     for(int next : dest[now])
         if(next!=prev)
-            dfs(next, now);
+        {
+            if(visited[next]!=0)
+                return 1;
+            if(dfs(next, now)!=0)
+                return 1;
+        }
+    return 0;
 }
 
 int main(void)
@@ -46,10 +42,8 @@ int main(void)
         }
 
         for(int i=1; i<=n; i++)
-        {
-            flag=0;
-            dfs(i,0);
-        }
+            if(dfs(i,0)==0)
+                tree_count++;
 
         if(tree_count==0)
             printf("Case %d: No trees.\n", case_count);

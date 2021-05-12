@@ -1,3 +1,4 @@
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -5,24 +6,21 @@ vector<int> visited(500);
 vector<vector<int> > dest;
 int n,m, tree_count, flag;
 
-void dfs(int now, int prev)
+int dfs(int now, int prev)
 {
     visited[now]++;
-    if(visited[now]!=1 || flag!=0)
-    {
-        flag++;
-        return;
-    }
-
-    if((dest[now].size()==1 && dest[now][0]==prev)|| dest[now].size()==0)
-    {
-        tree_count++;
-        return;
-    }
-
     for(int next : dest[now])
-        if(next!=prev)
+    {
+        if(next==prev) continue;
+        if(visited[next]==0)
             dfs(next, now);
+        else
+            flag++;
+    }
+    if(flag==0)
+        return 0;
+    else
+        return 1;
 }
 
 int main(void)
@@ -47,8 +45,12 @@ int main(void)
 
         for(int i=1; i<=n; i++)
         {
-            flag=0;
-            dfs(i,0);
+            if(visited[i]==0)
+            {
+                flag=0;
+                if(dfs(i,0)==0)
+                    tree_count++;
+            }
         }
 
         if(tree_count==0)

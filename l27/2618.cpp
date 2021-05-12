@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/2618
+// 2021-05-07 19:58:21 20ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -28,20 +29,18 @@ int solution(int one, int two)
 void get_route(int one, int two)
 {
     if(one == w || two == w) return;
-    int modtwo=two%1001;
-    int next=max(one,modtwo)+1;
-    int test1=dp[one][next]+get_dist(two,next);
-    int test2=dp[next][two]+get_dist(one,next);
-    int target=dp[one][modtwo];
-    if(dp[one][modtwo] == dp[one][next]+get_dist(two, next))
+    int next=max(one,two%1001)+1;
+    int d1=dp[next][two]+get_dist(one, next),
+        d2=dp[one][next]+get_dist(two, next);
+    if(d1<d2)
     {
-        printf("2");
-        get_route(one, next);
+        printf("1\n");
+        get_route(next, two);
     }
     else
     {
-        printf("1");
-        get_route(next, two);
+        printf("2\n");
+        get_route(one, next);
     }
 }
 
@@ -51,6 +50,7 @@ int main(void)
     event[0]={1,1}, event[1001]={n,n};
     for(int i=0; i<w; i++)
         scanf("%d%d", &event[i+1].first, &event[i+1].second);
-    printf("%d\n", solution(0,1001));
+    dp[0][0]=solution(0,1001);
+    printf("%d\n", dp[0][0]);
     get_route(0,1001);
 }
