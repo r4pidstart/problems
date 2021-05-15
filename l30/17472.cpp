@@ -1,4 +1,5 @@
-
+// https://www.acmicpc.net/problem/17472
+// 2021-05-16 01:50:16 0ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -6,17 +7,6 @@ const int mov[4][2]={{0,1}, {1,0}, {0,-1}, {-1,0}};
 vector<vector<int> > arr;
 vector<int> parent;
 int n,m,cnt=2;
-
-// void print_arr()
-// {
-//     printf("\n");
-//     for(int i=1; i<=n; i++)
-//     {
-//         for(int j=1; j<=m; j++)
-//             printf("%d ", arr[i][j]);
-//         printf("\n");
-//     }
-// }
 
 void dfs(int i, int j)
 {
@@ -74,8 +64,6 @@ int main(void)
                 dfs(i,j); // 탐색
                 cnt++;
             }
-
-    // print_arr();
     
     parent.assign(cnt, -1);
     
