@@ -1,87 +1,48 @@
-
 #include<bits/stdc++.h>
 using namespace std;
 
 typedef struct _point
 {
-    int x,y,z;
+    int x,y;
 }_point;
-
-vector<pair<int, int> > x,y,z;
-vector<_point> point;
-vector<int> selected;
-
-bool comp(const pair<int,int> &p1, const int v)
-{
-    if(p1.first<v)
-        return true;
-    else
-        return false;
-}
-
-void sel(int index) // 선택된 점 지우기
-{
-    _point target=point[index];
-    x.erase(lower_bound(x.begin(), x.end(), target.x, comp));
-    y.erase(lower_bound(y.begin(), y.end(), target.y, comp));
-    z.erase(lower_bound(z.begin(), z.end(), target.z, comp));
-    selected.push_back(index);
-    return;
-}
-
-pair<int,int> find_min(vector<pair<int,int> >::iterator x_it, vector<pair<int,int> >::iterator y_it, vector<pair<int,int> >::iterator z_it, _point target)
-{
-    int next_i=-1, cost=INT32_MAX;
-    if(x_it != x.end())
-        if(abs((x_it)->first-target.x) < cost)
-            next_i=(x_it)->second, cost=abs((x_it)->first-target.x);
-    if(y_it != y.end())
-        if(abs((y_it)->first-target.y) < cost)
-            next_i=(y_it)->second, cost=abs((y_it)->first-target.y);
-    if(z_it != z.end())
-        if(abs((z_it)->first-target.z) < cost)
-            next_i=(z_it)->second, cost=abs((z_it)->first-target.z);
-
-    if(x_it-1 != x.begin())
-        if(abs((x_it-1)->first-target.x) < cost)
-            next_i=(x_it-1)->second, cost=abs((x_it-1)->first-target.x);
-    if(y_it-1 != y.begin())
-        if(abs((y_it-1)->first-target.y) < cost)
-            next_i=(y_it-1)->second, cost=abs((y_it-1)->first-target.y);
-    if(z_it-1 != z.begin())
-        if(abs((z_it-1)->first-target.z) < cost)
-            next_i=(z_it-1)->second, cost=abs((z_it-1)->first-target.z);
-
-    return {cost, next_i};
-}
 
 int main(void)
 {
-    int n; scanf("%d", &n);
-    x.resize(n); y.resize(n); z.resize(n); point.resize(n+1);
-    for(int i=0; i<n; i++)
-        scanf("%d%d%d", &point[i].x, &point[i].y, &point[i].z);
-
-    for(int i=0; i<n; i++)
-        x[i]={point[i].x,i}, y[i]={point[i].y,i}, z[i]={point[i].z,i};
-    sort(x.begin(), x.end());
-    sort(y.begin(), y.end());
-    sort(z.begin(), z.end());
-
-    sel(0);
-    int sum=0;
-    while(x.size()!=0)
+    _point a,b,c,d;
+    scanf("%d%d%d%d%d%d%d%d", &a.x,&a.y,&b.x,&b.y,&c.x,&c.y,&d.x,&d.y);
+    // x축 기준으로 정렬
+    if(a.x > b.x)
+        swap(a,b);
+    if(c.x > d.x)
+        swap(c,d);
+        
+    // 겹치는 부분 구하기
+    int start=max(a.x, c.x), end=min(b.x, d.x);
+    if(start > end) // 구간이 겹치지 않을 경우
     {
-        pair<int,int> next; // cost, next_i
-        for(int sel : selected)
-        {
-            vector<pair<int,int> >::iterator x_it=lower_bound(x.begin(), x.end(), point[sel].x, comp);
-            vector<pair<int,int> >::iterator y_it=lower_bound(y.begin(), y.end(), point[sel].y, comp);
-            vector<pair<int,int> >::iterator z_it=lower_bound(z.begin(), z.end(), point[sel].z, comp);
-            next=find_min(x_it, y_it, z_it, point[sel]);
-        }
-        sum+=next.first;
-        sel(next.second);
+        printf("0");
+        return 0;
     }
-    printf("%d", sum);
+    
+    // 식 구하기 ax+b
+    double a1=(float)(b.y-a.y)/(b.x-a.x), a2=(float)(d.y-c.y)/(d.x-c.x);
+    double b1=a.y-a1*a.x, b2=c.y-a2*c.x;
+    if(a1==a2 && b1==b2)
+    {
+        printf("1\n");
+        // if(start==end)
+        //     printf("%d %lf", start, a1*start+b1);
+        return 0;
+    }
+
+
+    double x=(float)(b2-b1)/(a1-a2); // 교점(식이 동일하지 않은 이상 1차식 두개를 연립헀을 떄 나오는 교점은 하나.)
+    // printf("1: %lfx+%lf\n2: %lfx+%lf\nstart: %d, end: %d, x=%lf\n\n", a1, b1, a2, b2, start, end, x);
+    if(start <= x && x <= end)
+    {
+        printf("1\n");
+        // printf("%lf %lf", x, a1*x+b1);
+    }
+    else
+        printf("0");
 }

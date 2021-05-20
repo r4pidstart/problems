@@ -37,5 +37,6 @@ int main(void)
         printf("0");
 }
 
+
 // a.x b.x c.x
 // a.y b.y c.y
