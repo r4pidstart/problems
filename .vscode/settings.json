@@ -5,7 +5,9 @@
         "vector": "cpp",
         "random": "cpp",
         "*.tcc": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "cmath": "cpp",
+        "iostream": "cpp"
     },
     "editor.fontFamily": "'D2Coding ligature', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 14
