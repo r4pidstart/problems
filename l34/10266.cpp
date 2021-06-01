@@ -1,11 +1,12 @@
-
+// https://www.acmicpc.net/problem/10266
+// 2021-06-01 23:20:21 92ms
 #include<bits/stdc++.h>
 using namespace std;
 
 int main(void)
 {
-    // 오름차순 (nlogn) -> 요소간의 차 구하기 (n) -> a문자열 2개 이어붙이고 kmp로 찾기(n)
-    // 상대적인 각도가 어디던간에, 집단이 동일하다는것을 확인하기만 하면 됨
+    // 오름차순 정렬 (nlogn) -> 요소간의 차 구하기 (n) -> a문자열 2개 이어붙이고 kmp로 찾기(n)
+    // 상대적인 각도가 뭐던간에, 두 집단이 동일하다는것을 확인하기만 하면 됨
 
     int n; scanf("%d", &n);
     vector<int> str1(n), str2(n);
@@ -56,7 +57,7 @@ int main(void)
         if(m<n && str1[begin+m]==str2[m])
         {
             m++;
-            if(begin+m==n && cycle)
+            if(begin+m==n && cycle) // 문자열을 이어붙이는 부분
                 cycle--, begin=-m;
             if(m==n)
             {
