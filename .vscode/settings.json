@@ -7,7 +7,8 @@
         "*.tcc": "cpp",
         "ranges": "cpp",
         "cmath": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "numbers": "cpp"
     },
     "editor.fontFamily": "'D2Coding ligature', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 14
