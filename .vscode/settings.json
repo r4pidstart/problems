@@ -8,7 +8,11 @@
         "ranges": "cpp",
         "cmath": "cpp",
         "iostream": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "span": "cpp"
     },
     "editor.fontFamily": "'D2Coding ligature', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 14
