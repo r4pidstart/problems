@@ -1,4 +1,6 @@
-
+// https://www.acmicpc.net/problem/14425
+// 2021-06-03 01:37:59 1364ms
+// 그냥 트라이 연습문제
 #include<bits/stdc++.h>
 using namespace std;
 
