@@ -5,7 +5,7 @@ using namespace std;
 
 const int MOD=1000000000;
 int memo[101][1024][10]={};
-// total_digit, selected(bitmask), last_digit
+// length, selected(bitmask), last_digit
 
 int dp(int t_digit, int n_digit, int mask, int last)
 {
