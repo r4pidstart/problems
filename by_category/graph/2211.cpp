@@ -40,23 +40,26 @@ int main(void)
         }
     }
     
-    // 경로탐색 하나씩 하기
-    set<pair<int,int> > edge; // 중복제거를 위해 오름차순으로 정렬해서 넣기
+    // // 경로탐색 하나씩 하기
+    // set<pair<int,int> > edge; // 중복제거를 위해 오름차순으로 정렬해서 넣기
+    // for(int i=2; i<=n; i++)
+    // {
+    //     int curr=i;
+    //     while(prev[curr]!=-1)
+    //     {
+    //         if(prev[curr]<curr)
+    //             edge.insert({prev[curr], curr});
+    //         else
+    //             edge.insert({curr, prev[curr]});
+    //         curr=prev[curr];
+    //     }
+    // }
+
+    deque<pair<int, int> > ans;
     for(int i=2; i<=n; i++)
-    {
-        int curr=i;
-        while(prev[curr]!=-1)
-        {
-            if(prev[curr]<curr)
-                edge.insert({prev[curr], curr});
-            else
-                edge.insert({curr, prev[curr]});
-            curr=prev[curr];
-        }
-    }
+        ans.push_back({i, prev[i]});
 
-    printf("%ld\n", edge.size());
-    for(auto& e : edge)
+    printf("%ld\n", ans.size());
+    for(auto& e : ans)
         printf("%d %d\n", e.first, e.second);
-
 }
