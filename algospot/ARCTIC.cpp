@@ -22,13 +22,13 @@ int decision(double output)
 {
     vector<int> visited(n, 0);
     int reached=0;
-    stack<int> stk;
-    stk.push(0);
+    queue<int> q;
+    q.push(0);
 
-    while(!stk.empty())
+    while(!q.empty())
     {
-        int now=stk.top();
-        stk.pop();
+        int now=q.front();
+        q.pop();
         if(visited[now])
             continue;
 
@@ -38,7 +38,7 @@ int decision(double output)
         {
             if(next.first > output)
                 break;
-            stk.push(next.second);
+            q.push(next.second);
         }
     }
     return reached==n ? 1:0; // 가능하면 1을 반환
