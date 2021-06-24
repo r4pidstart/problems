@@ -6,24 +6,22 @@ using namespace std;
 int main(void)
 {
     int t; scanf("%d", &t);
-    int memo[10000];
+    vector<int> memo;
     for(int j=1; j<=t; j++)
     {
         int n,k; scanf("%d%d", &n,&k);
-        memset(memo,0,sizeof(memo));
-        int lis_length=0;
+        memo=vector<int>(1,0);
         for(int i=1; i<=n; i++)
         {
             int num; scanf("%d", &num);
             // lis
-            auto it=lower_bound(memo, memo+lis_length, num)-memo;
-            memo[it]=num;
-            if(it==lis_length)
-            {
-                memo[it]=num;
-                lis_length++;
-            }
+            auto it=lower_bound(memo.begin(), memo.end()-1, num);
+            if(*it > num)
+                *it=num;
+            else if(*it < num)
+                memo.push_back(num);
         }
+        int lis_length=memo.size()-1;
         printf("Case #%d\n", j);
         if(k<=lis_length)
             printf("1\n");
