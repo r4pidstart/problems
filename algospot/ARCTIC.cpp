@@ -1,5 +1,6 @@
 // 12-2 ARCTIC
 // https://algospot.com/judge/problem/read/ARCTIC
+// 2021-06-22 00:34:41
 
 #include<bits/stdc++.h>
 using namespace std;

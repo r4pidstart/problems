@@ -1,5 +1,6 @@
-// https://www.acmicpc.net/problem/
-// 
+// 6-5 BOARDCOVER
+// https://algospot.com/judge/problem/read/BOARDCOVER
+// 2021-06-27 01:53:06 4ms
 #include<bits/stdc++.h>
 using namespace std;
 
