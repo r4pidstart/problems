@@ -1,5 +1,6 @@
-// https://www.acmicpc.net/problem/
-// 
+// 6-8 CLOCKSYNC
+// https://algospot.com/judge/problem/read/CLOCKSYNC
+// 2021-06-30 03:31:35 
 #include<bits/stdc++.h>
 using namespace std;
 
