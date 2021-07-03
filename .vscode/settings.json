@@ -19,6 +19,6 @@
         "utility": "cpp",
         "valarray": "cpp"
     },
-    "editor.fontFamily": "'D2Coding ligature', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'D2Coding ligature', Consolas, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 14
 }
