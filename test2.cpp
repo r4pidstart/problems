@@ -3,5 +3,7 @@ using namespace std;
 
 int main(void)
 {
-    printf("%d", 0%12);
+    map<int,int> test;
+    test[0]++;
+    printf("%d", test[0]);
 }
