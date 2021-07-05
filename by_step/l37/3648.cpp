@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/3648
+// 2021-07-06 00:29:09 20ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -51,6 +51,7 @@ int main(void)
             graph[-b+n].push_back(a+n);
         }
         graph[-1+n].push_back(1+n);
+        // 1번이 무조건 합격해야 함.
          
         for(int i=0; i<2*n+1; i++)
             if(!finished[i])
