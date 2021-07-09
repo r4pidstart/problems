@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/2042
+// 2021-07-10 03:34:39 280ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -53,5 +53,5 @@ int main(void)
 }
 
 /*
-    https://www.acmicpc.net/blog/view/9
+    update 방식을 diff를 이용하지 않고, 재귀를 이용하는 것으로 바꿈
 */

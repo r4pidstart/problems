@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/2042
+// 2021-07-10 03:24:06 264ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -22,15 +22,19 @@ long long seg_get_sum(int now, int start, int end, int left, int right)
         return seg_get_sum(now*2, start, (start+end)/2, left, right)+seg_get_sum(now*2+1, (start+end)/2+1, end, left, right);
 }
 
-long long seg_update(int now, int start, int end, int index, long long target)
+void seg_update(int now, int start, int end, int index, long long diff)
 {
-    if(!(start <= index && index <= end)) // 바꿀 필요 없으면
-        return seg_tree[now];
+    // 구간에 index가 포함되는 경우
+    if(!(start <= index && index <= end))
+        return;
     
-    if(start==end) // 리프 노드이면
-        return seg_tree[now]=target;
-
-    return seg_tree[now]=(seg_update(now*2, start, (start+end)/2, index, target)+seg_update(now*2+1, (start+end)/2+1, end, index, target));
+    seg_tree[now]+=diff;
+    // 끝 노드가 아니면
+    if(start != end)
+    {
+        seg_update(now*2, start, (start+end)/2, index, diff);
+        seg_update(now*2+1, (start+end)/2+1, end, index, diff);
+    }
 }
 
 int main(void)
@@ -46,7 +50,10 @@ int main(void)
     {
         long long a,b,c; scanf("%lld%lld%lld", &a,&b,&c);
         if(a==1)
-            seg_update(1, 0, n-1, b-1, c);
+        {
+            seg_update(1, 0, n-1, b-1, c-numbers[b-1]); // change numbers[b] to c
+            numbers[b-1]=c;
+        }
         else
             printf("%lld\n", seg_get_sum(1, 0, n-1, b-1, c-1)); 
     }
