@@ -3,88 +3,57 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int scccnt=1;
-stack<int> stk;
-vector<vector<int> > graph;
-vector<int> sccidx, finished, visited;
-
-int targanDFS(int now)
-{
-    static int visit_cnt=1;
-    if(visited[now])
-        return visited[now];
-    int low_link=visited[now]=visit_cnt++;
-    stk.push(now);
-
-    for(int next : graph[now])
-        if(!finished[next])
-            low_link=min(low_link, targanDFS(next));
-
-    if(low_link == visited[now])
-    {
-        while(true)
-        {
-            int v=stk.top();
-            stk.pop();
-
-            finished[v]++;
-            sccidx[v]=scccnt;
-
-            if(v==now)
-                break;
-        }
-        scccnt++;
-    }
-    return low_link;
-}
-
 int main(void)
 {
-    int n,k; scanf("%d%d", &n,&k);
-    sccidx=finished=visited=vector<int>(2*n+1, 0);
-    graph=vector<vector<int> >(2*n+1, vector<int>());
+    int n, m; scanf("%d%d", &n,&m);
+    vector<vector<pair<int, int> > > dest(n+1, vector<pair<int, int> >());
+    vector<int> dist(n+1, INT32_MAX/2), route(n+1, 0);
+    priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > pq;
 
-    for(int i=0; i<k; i++)
+    for(int i=0; i<m; i++)
     {
-        int n1, n2, n3; char c1, c2, c3;
-        scanf("%d %c %d %c %d %c", &n1, &c1, &n2, &c2, &n3, &c3);
-        n1=c1=='B' ? -n1:n1, n2=c2=='B' ? -n2:n2, n3=c3=='B' ? -n3:n3;            
-        // if A->B, A -> ~B , ~A->B
-        graph[-n1+n].push_back(n2+n);
-        graph[-n2+n].push_back(n1+n);
-        graph[-n2+n].push_back(n3+n);
-        graph[-n3+n].push_back(n2+n);
-        graph[-n1+n].push_back(n3+n);
-        graph[-n3+n].push_back(n1+n);
+        int a,b,c; scanf("%d%d%d",&a,&b,&c);
+        dest[a].push_back({b, c});
     }
 
-    for(int i=0; i<2*n+1; i++)
-        if(!finished[i])
-            targanDFS(i);
+    int start, end; scanf("%d%d", &start, &end);
+    dist[start]=0;
+    pq.push({0, start});
 
-    for(int i=0; i<n; i++)
-        if(sccidx[i]==sccidx[2*n-i])
-        {
-            printf("-1");
-            return 0;
-        }
-    
-    for(int i=n+1; i<2*n+1; i++)
+    while(!pq.empty())
     {
-        printf("%c", sccidx[i]<sccidx[2*n-i] ? 'R':'B');
+        int now_dist=pq.top().first, now=pq.top().second;
+        pq.pop();
+
+        if(dist[now] < now_dist) continue;
+
+        for(auto next_p : dest[now])
+        {
+            int next=next_p.first, next_dist=next_p.second;
+            if(dist[next] > now_dist + next_dist)
+            {
+                dist[next]=now_dist+next_dist;
+                route[next]=now;
+                pq.push({dist[next], next});
+            }
+        }
+    }
+    int cur=end;
+    stack<int> ans;
+    while(cur!=0)   
+    {   
+        ans.push(cur);
+        cur=route[cur];
+    }
+
+    printf("%d\n%ld\n", dist[end], ans.size());
+    while(!ans.empty())
+    {
+        printf("%d ", ans.top());
+        ans.pop();
     }
 }
 
 /*
-    B -> -, R -> +
-    A or B or C 중 2개 이상 선택
-    -> (A or B) and (B or C) and (C or A)로 바꿀 수 있음
 
-    -3
-    -2
-    -1 -> 2
-    0
-    1 -> 4
-    2
-    3
 */
