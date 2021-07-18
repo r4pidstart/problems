@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/1517
+// 2021-07-19 02:49:41 516ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -76,5 +76,5 @@ int main(void)
 }
 
 /*
-
+    최솟값을 구하는 과정을 priority queue로 바꾸면 시간이 많이 줄 것
 */
