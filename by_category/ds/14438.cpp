@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/14438
+// 2021-07-20 06:05:19 84ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -31,14 +31,14 @@ int get_min(int now, int s, int e, int l, int r)
     return min(get_min(now*2, s, mid, l, r), get_min(now*2+1, mid+1, e, l, r));
 }
 
-int find(int now, int s, int e, int l, int r, int target)
-{
-    if(r<s || e<l)
-        return INT32_MAX;
-    if(s==e)
-        return seg[now]==target ? s:INT32_MAX;
-    return min(find(now*2, s, mid, l, r, target), find(now*2+1, mid+1, e, l, r, target));
-}
+// int find(int now, int s, int e, int l, int r, int target)
+// {
+//     if(r<s || e<l)
+//         return INT32_MAX;
+//     if(s==e)
+//         return seg[now]==target ? s:INT32_MAX;
+//     return min(find(now*2, s, mid, l, r, target), find(now*2+1, mid+1, e, l, r, target));
+// }
 
 int main(void)
 {
@@ -57,7 +57,7 @@ int main(void)
         if(a==1)
             update(1, 0, n-1, b-1, c);
         else
-            printf("%d\n", find(1, 0, n-1, b-1, c-1, get_min(1, 0, n-1, b-1, c-1)) +1);
+            printf("%d\n", get_min(1, 0, n-1, b-1, c-1));
 
     }
 }
