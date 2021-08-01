@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/1761
+// 2021-08-02 03:45:32 40ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -76,5 +76,5 @@ int main(void)
 }
 
 /*
-
+    세그먼트 트리로 LCA 구하기
 */
