@@ -3,45 +3,108 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<vector<int> > num, sum;
+vector<vector<pair<int,int> > > graph;
+vector<int> dist, route;
 
 int main(void)
 {
-    int n,m; scanf("%d%d", &n,&m);
-    sum.assign(n+1, vector<int>(n+1,0));
-    num.assign(n+1, vector<int>(n+1,0));
-    for(int i=1; i<=n; i++)
-        for(int j=1; j<=n; j++)
-            scanf("%d", &num[i][j]);
+    int n,m,k; scanf("%d%d%d", &n,&m,&k);
+    int s,d; scanf("%d%d", &s,&d);
 
-    for(int i=0; i<=n; i++)
-        for(int j=0; j<=n; j++)
-            sum[i][j]=sum[i][j-1]+num[i][j];
+    graph.assign(n, vector<pair<int,int> >());
+    dist.assign(n,0), route.assign(n,0);
 
-    for(int j=0; j<m; j++)
+    for(int i=0; i<m; i++)
     {
-        int cmd; scanf("%d", &cmd);
-        if(cmd==0)
+        int a,b,c; scanf("%d%d%d", &a,&b,&c);
+        graph[a-1].push_back({b-1,c});
+        graph[b-1].push_back({a-1,c});
+    }
+    
+    // find shortest route
+    fill(dist.begin(), dist.end(), INT32_MAX/2);
+    fill(route.begin(), route.end(), -1);
+    priority_queue<pair<int,int>, vector<pair<int,int> >, greater<pair<int,int> > > pq;
+    pq.push({0,s-1});
+    dist[s-1]=0;
+    while(!pq.empty())
+    {
+        int now=pq.top().second, now_dist=pq.top().first;
+        pq.pop();
+
+        if(dist[now] < now_dist) continue;
+        for(auto next : graph[now])
         {
-            int x,y,z; scanf("%d%d%d", &x,&y,&z);
-            num[x][y]=z;
-
-            for(int i=y; i<=n; i++)
-                sum[x][i]=sum[x][i-1]+num[x][i];
+            int next_dist=now_dist+1;
+            if(dist[next.first] > next_dist)
+            {
+                dist[next.first]=next_dist;
+                pq.push({next_dist, next.first});
+                route[next.first]=now;
+            }
         }
-        else
+    }
+    int s_route_dist=dist[d-1];
+    deque<int> s_route;
+    int now=d-1;
+    while(route[now]!=-1)
+    {
+        s_route.push_back(now);
+        now=route[now];
+    }
+
+    int flag=0, tax=0, ans;
+    for(int i=0; i<=k; i++)
+    {
+        if(flag)
         {
-            int x1,y1,x2,y2; scanf("%d%d%d%d", &x1,&y1,&x2,&y2);
-
-            if(x1>x2) swap(x1,x2);
-            if(y1>y2) swap(y1,y2);
-
-            int area_sum=0;
-            for(int i=x1; i<=x2; i++)
-                area_sum+=sum[i][y2]-sum[i][y1-1];
-
-            printf("%d\n", area_sum);            
+            ans+=s_route_dist;
+            printf("%d\n", ans);
+            continue;   
         }
+
+        if(i!=0)
+        {
+            int tax_update; scanf("%d", &tax_update);
+            tax+=tax_update;
+        }
+
+        // dijkstra
+        fill(dist.begin(), dist.end(), INT32_MAX/2);
+        fill(route.begin(), route.end(), -1);
+        pq.push({0,s-1});
+        dist[s-1]=0;
+        while(!pq.empty())
+        {
+            int now=pq.top().second, now_dist=pq.top().first;
+            pq.pop();
+
+            if(dist[now] < now_dist) continue;
+            for(auto next : graph[now])
+            {
+                int next_dist=now_dist+next.second+tax;
+                if(dist[next.first] > next_dist)
+                {
+                    dist[next.first]=next_dist;
+                    pq.push({next_dist, next.first});
+                    route[next.first]=now;
+                }
+            }
+        }
+
+        // check whether shortest route and this route are the same
+        deque<int> n_route;
+        int now=d-1;
+        while(route[now]!=-1)
+        {
+            n_route.push_back(now);
+            now=route[now];
+        }
+
+        if(n_route==s_route)
+            flag++, ans=dist[d-1];
+
+        printf("%d\n", dist[d-1]);
     }
 }
 
