@@ -1,5 +1,5 @@
 // https://www.acmicpc.net/problem/13907
-// 2021-08-11 01:13:45 1420ms
+// 2021-08-11 01:13:45 124ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -31,7 +31,14 @@ int main(void)
         int now=pq.top().second.second, now_dist=pq.top().first, now_cnt=pq.top().second.first;
         pq.pop();
 
-        if(dist[now_cnt][now] < now_dist) continue;
+        int flag=0;
+        for(int i=0; i<=now_cnt; i++)
+            if(dist[i][now] < now_dist)
+            {
+                flag++;
+                break;
+            }
+        if(flag) continue;
         if(now_cnt+1 >= n) continue;
         for(auto next : graph[now])
         {
