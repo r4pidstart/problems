@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/1701
+// 2021-08-14 04:12:24 16ms
 //#include<bits/stdc++.h>
 #define _CRT_SECURE_NO_WARNINGS
 #include<string>
@@ -8,8 +8,6 @@
 #include<vector>
 #include<unordered_set>
 using namespace std;
-
-#include<time.h>
 
 int length;
 string s;
@@ -78,13 +76,11 @@ void hashing(void)
 
 int main(void)
 {
-	clock_t start=clock();
 	freopen("input.txt", "r", stdin);
 	cin >> s;
 	length=s.length();
 	hashing();
 	cout << optimize();
-	clock_t end=clock();
 }
 
 /*
