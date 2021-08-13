@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/1605
+// 2021-08-14 06:44:01 736ms
 //#include<bits/stdc++.h>
 #pragma GCC optimize("O3")
 #pragma GCC optimize("Ofast")
