@@ -5,18 +5,12 @@ using namespace std;
 
 int main(void)
 {
-	int n; scanf("%d",&n);
-	vector<int> price(n+1, 0);
-	for(int i=1; i<=n; i++)
-		scanf("%d",&price[i]);
-	
-	vector<int> dp(n+1, 0);
-	// dp[i]=i개의 카드를 사는데 필요한 최대금액
-	for(int i=1; i<=n; i++)
-		for(int j=1; j<=i; j++)
-			dp[i]=max(dp[i], dp[i-j]+price[j]);
+	int n; scanf("%d", &n);
+	vector<int> num(n,0);
+	for(int i=0; i<n; i++)
+		scanf("%d", &num[i]);
 
-	printf("%d", dp[n]);
+	
 }
 
 /*
