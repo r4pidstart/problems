@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-//
+// https://www.acmicpc.net/problem/5582
+// 2021-08-25 02:23:40 84ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -13,7 +13,7 @@ int main(void)
     for(int i=1; i<=a.length(); i++)
         for(int j=1; j<=b.length(); j++)
         {
-            if(a[i]==b[j])
+            if(a[i-1]==b[j-1])
                 dp[i][j]=dp[i-1][j-1]+1;
             else
                 dp[i][j]=0;
