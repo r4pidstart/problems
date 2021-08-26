@@ -5,29 +5,21 @@ using namespace std;
 
 int main(void)
 {
-    int n,m; scanf("%d%d", &n,&m);
-    vector<int> vip(n+1,0);
-    for(int i=0; i<m; i++)
+    int n; scanf("%d", &n);
+    vector<vector<int> > task(n+1, vector<int>());
+    vector<int> indegree(n+1, 0), cost(n+1, 0);
+    
+    for(int i=1; i<=n; i++)
     {
-        int a; scanf("%d", &a);
-        vip[a]++;
-    }
-
-    vector<vector<int> > dp(n+1, vector<int>(2,0));
-    dp[1][0]=1;
-    for(int i=2; i<n+1; i++)
-    {
-        if(vip[i])
-            dp[i][0]=dp[i-1][0]+dp[i-1][1];
-        else if(vip[i-1])
-            dp[i][0]=dp[i-1][0];
-        else
+        int b; scanf("%d%d", &cost[i],&b);
+        for(int i=0; i<b; i++)
         {
-            dp[i][0]=dp[i-1][0]+dp[i-1][1];
-            dp[i][1]=dp[i-1][0];
+            int c; scanf("%d", &c);
+            task[c].push_back(i);
         }
     }
-    printf("%d", dp[n][0]+dp[n][1]);
+
+    queue<int> 
 }
 
 /*
