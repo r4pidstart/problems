@@ -3,32 +3,34 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+string s;
+
+int decision(int n)
+{
+    
+}
+
+int optimize()
+{
+    int lo=0, hi=200000, ans;
+    while(lo<=hi)
+    {
+        int mid=(lo+hi)/2;
+        if(decision(mid))
+        {
+            ans=mid;
+            lo=mid+1;
+        }
+        else
+            hi=mid-1;
+    }
+    return ans;
+}
+
 int main(void)
 {
-    int t,w; scanf("%d%d", &t,&w);
-    vector<vector<int> > dp(t+1, vector<int>(w+1, 0));
-    vector<int> data(t+1, 0);
-    // dp[i][j][k] : i초까지 j번이동했을 때 받은 갯수
-
-    for(int i=1; i<=t; i++)
-        scanf("%d", &data[i]);
-
-    dp[0][0]=(int)(data[0]==1);
-    for(int i=0; i<t; i++)
-        for(int j=0; j<=w; j++)
-        {
-            if(j&1)
-            {
-                dp[i+1][j]=max(dp[i+1][j], dp[i][j]+(int)(data[i+1]==2));
-                if(j!=w) dp[i+1][j+1]=max(dp[i+1][j], dp[i][j]+(int)(data[i+1]==1));
-            }
-            else
-            {
-                dp[i+1][j]=max(dp[i+1][j], dp[i][j]+(int)(data[i+1]==1));
-                if(j!=w) dp[i+1][j+1]=max(dp[i+1][j], dp[i][j]+(int)(data[i+1]==2));
-            }
-        }
-    printf("%d", *max_element(dp[t].begin(), dp[t].end()));
+    cin >> s;
+    printf("%d", optimize());
 }
 
 /*

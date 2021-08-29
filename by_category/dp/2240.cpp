@@ -8,7 +8,7 @@ int main(void)
     int t,w; scanf("%d%d", &t,&w);
     vector<vector<int> > dp(t+1, vector<int>(w+1, 0));
     vector<int> data(t+1, 0);
-    // dp[i][j][k] : i초까지 j번이동했을 때 받은 갯수
+    // dp[i][j]: i초까지 j번이동했을 때 받은 갯수
 
     for(int i=1; i<=t; i++)
         scanf("%d", &data[i]);
