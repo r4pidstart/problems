@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/10835
+// 2021-09-04 00:54:52 36ms
 #include<bits/stdc++.h>
 using namespace std;
 
