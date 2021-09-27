@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-//
+// https://www.acmicpc.net/problem/1068
+// 2021-09-28 03:31:41 0ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -12,7 +12,7 @@ int dfs(int now, int t)
 
     int ret=0;
     for(int next : graph[now])
-        if(next == t) ret+=graph[now].size()==1 ? 1:0;
+        if(next == t) ret+=graph[now].size()==1 ? 1:0; // 다른 자식이 없다면 리프 노드가 됨.
         else ret+=dfs(next, t);
     return ret;
 }
