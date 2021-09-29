@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-//
+// https://www.acmicpc.net/problem/3090
+// 2021-09-30 05:16:06 52ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -43,7 +43,6 @@ int decision(int mid, int t)
 
 int main(void)
 {
-    // freopen("zivica.in.4", "r", stdin);
     int n,t; scanf("%d%d", &n,&t);
     arr.assign(n,0);
     for(int i=0; i<n; i++)
@@ -62,12 +61,6 @@ int main(void)
             lo=mid+1;
     }
 
-    // freopen("zivica.out.4", "r", stdin);
-    // for(int i : cand)
-    // {
-    //     int tmp; scanf("%d", &tmp);
-    //     if(tmp!=i) printf("expected %d but %d\n", tmp, i);
-    // }
     for(auto i : cand)
         printf("%d ", i);
 }
