@@ -1,4 +1,4 @@
-// https://www.acmicpc.net/problem/
+// http://220.89.64.243/30stair/depth/depth.php?pname=depth
 //
 #include<bits/stdc++.h>
 using namespace std;
@@ -27,6 +27,7 @@ void dfs(int dep)
 
     if(deg==2) cnt++;
 }
+
 int main(void)
 {
     getchar();

@@ -1,4 +1,4 @@
-// http://220.89.64.243/30stair/treeornot
+// http://220.89.64.243/30stair/treeornot/treeornot.php?pname=treeornot
 //
 #include<bits/stdc++.h>
 using namespace std;
