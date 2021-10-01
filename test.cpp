@@ -3,25 +3,106 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+struct Trie
+{
+    int is_terminal, word_count;
+    Trie* node['z'-'.'+1]; // . 1-9 A-Z a-z
+
+    Trie()
+    {
+        for(int i=0; i<'z'-'.'+1; i++)
+            node[i]=nullptr;
+        is_terminal=word_count=0;
+    }
+
+    ~Trie()
+    {
+        for(int i=0; i<'z'-'.'+1; i++)
+            if(node[i])
+                delete node[i];
+    }
+
+    int insert(string s, int s_idx=0)
+    {
+        if(s_idx == s.length()) return is_terminal=word_count=1;
+        if(node[s[s_idx]-'.']==nullptr) node[s[s_idx]-'.']=new Trie();
+        word_count++;
+        return node[s[s_idx]-'.']->insert(s, s_idx+1);
+    }
+
+    int search(string s, int s_idx=0)
+    {
+        if(s_idx==s.length()) return word_count;
+        if(node[s[s_idx]-'.']==nullptr) return 0;
+        return node[s[s_idx]-'.']->search(s, s_idx+1);
+    }
+
+    int remove(string s, int s_idx=0)
+    {
+        if(s_idx==s.length())
+        {
+            word_count--, is_terminal=0;
+            return 1;
+        }
+        if(s[s_idx]=='*')
+        {
+            int ret=word_count;
+            word_count=0, is_terminal=0;
+            for(int i=0; i<'z'-'.'+1; i++) if(node[i]) delete node[i];
+            for(int i=0; i<'z'-'.'+1; i++) if(node[i]) node[i]=nullptr;
+            return ret;
+        }
+        if(node[s[s_idx]-'.']==nullptr) return 0;
+
+        int removed=node[s[s_idx]-'.']->remove(s, s_idx+1);
+        word_count-=removed;
+        return removed;
+    }
+    
+};
+
+string target="";
+int dfs(Trie* t1, Trie* t2, Trie* cur)
+{
+    if(!t2->search(target))
+    {
+        t1->remove(target+"*");
+        return 1;
+    }
+
+    int ret=0;
+    for(int i=0; i<'z'-'.'+1; i++) if(cur->node[i])
+        {
+            target+=char(i+'.');
+            ret+=dfs(t1, t2, cur->node[i]);
+            target.erase(target.length()-1);
+        }
+    return ret;
+}
+
 int main(void)
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-
-    int cur=0, cnt=0;
-    while(cur < s2.length())
+    int t; scanf("%d", &t);
+    while(t--)
     {
-        // 한 칸씩 늘리면서 최대한 긴 문자열 찾기
-        auto found=1; // 찾은 문자열 길이
-        for(int i=1; cur+i<=s2.length(); i++)
+        Trie* trie1=new Trie(), *trie2=new Trie();
+        int n; scanf("%d", &n);
+        for(int i=0; i<n; i++)
         {
-            auto res=s1.find(s2.substr(cur, i));
-            if(res!=string::npos) found=i;
-            else break;
+            string s; cin >> s;
+            trie1->insert(s);
         }
-        cur+=found, cnt++;
+        scanf("%d", &n);
+        for(int i=0; i<n; i++)
+        {
+            string s; cin >> s;
+            trie2->insert(s);
+        }
+
+        printf("%d\n", dfs(trie1, trie2, trie1)+trie1->word_count);
+        delete trie1, trie2;
     }
-    printf("%d", cnt);
+
 }
 
 /*
