@@ -1,4 +1,4 @@
-// https://www.acmicpc.net/problem/
+// http://220.89.64.243/30stair/traverse/traverse.php?pname=traverse
 //
 #include<bits/stdc++.h>
 using namespace std;
