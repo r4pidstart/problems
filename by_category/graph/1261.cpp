@@ -15,6 +15,7 @@ int main(void)
     vector<vector<int> > dist(n, vector<int>(m, INT32_MAX/2));
     priority_queue<pair<int, pair<int, int> >, vector<pair<int, pair<int, int> > >, greater<pair<int, pair<int, int> > > > pq;
     pq.push({0,{0,0}});
+    // dist, {x, y}
     dist[0][0]=0;
 
     const int move[4][2]={{0,1}, {1,0}, {-1,0}, {0,-1}};

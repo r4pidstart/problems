@@ -3,24 +3,31 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-string pre, in;
-
-void post(int root, int lIn, int rIn)
-{
-    for(int i=lIn; i<=rIn; i++)
-        if(pre[root]==in[i]) // 루트를 찾았다면,
-        {
-            // 좌 우로 재귀
-            post(root+1, lIn, i-1);
-            post(root+i-lIn+1, i+1, rIn);
-            printf("%c", pre[root]);
-        }
-}
-
 int main(void)
 {
-        cin >> in >> pre;
-        post(0, 0, pre.length()-1);
+    string s, bomb, str=""; cin >> s >> bomb;
+    for(int i=0; i<(int)s.length(); i++)
+    {
+        str.push_back(s[i]);
+        if(str[i]==bomb[bomb.length()-1])
+        {
+            if(i < bomb.length()-1) continue;
+            int flag=0;
+            for(int j=0; j<bomb.length(); j++)
+                if(str[i-bomb.length()+j+1]!=bomb[j])
+                {
+                    flag++;
+                    break;
+                }
+            if(!flag) 
+            {
+                for(int j=0; j<bomb.length(); j++) str.pop_back();
+                i--;
+            }
+        }
+    }
+    if(str.empty()) printf("FRULA");
+    else cout << str;
 }
 
 /*
