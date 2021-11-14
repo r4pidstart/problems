@@ -6,42 +6,36 @@ using namespace std;
 int main(void)
 {
     int n; scanf("%d", &n);
-    unsigned long long status=0;
-    for(int i=0; i<n*n; i++)
+    vector<long long> rdpMax(n+1), rdpMin(n+1), dpMax(n+1), dpMin(n+1), 
+                        arr(n+1), minCache(n+1), maxCache(n+1);
+    for(int i=0; i<n; i++) scanf("%d", &arr[i+1]);
+
+    minCache[0]=maxCache[0]=arr[1];
+    for(int i=1; i<=n; i++)
     {
-        int tmp; scanf("%d", &tmp);
-        if(tmp) status|=(1LL<<i);
+        if(maxCache[i-1]<0) maxCache[i]=arr[i]; else maxCache[i]=maxCache[i-1]+arr[i];
+        if(mi>0) mi=arr[i]; else mi+=arr[i];
+        dpMax[i]=max(dpMax[i-1], ma);
+        dpMin[i]=min(dpMin[i-1], mi);
     }
 
-    queue<pair<int, unsigned long long> > q;
-    unordered_set<unsigned long long> uds;
-    uds.reserve(1<<17);
-    q.push({0,status});
-
-    int ans=INT32_MAX;
-    while(!q.empty())
+    minCache[n-1]=maxCache[n-1]=arr[n];
+    for(int i=n-1; i>=0; i--)
     {
-        auto now=q.front(); q.pop();
-        if(uds.find(now.second) != uds.end()) continue;
-        uds.insert(now.second);
-        
-        ans=min({ans, __builtin_popcountll(now.second)+now.first, n*n-__builtin_popcountll(now.second)+now.first});
-        for(int i=0; i<n; i++)
-        {
-            for(int j=0; j<n; j++)
-                now.second^=(1LL<<i+n*j);
-                q.push({now.first+1, now.second});
-            for(int j=0; j<n; j++)
-                now.second^=(1LL<<i+n*j);
-
-            for(int j=0; j<n; j++)
-                now.second^=(1LL<<i*n+j);
-                q.push({now.first+1, now.second});
-            for(int j=0; j<n; j++)
-                now.second^=(1LL<<i*n+j);
-        }
+        if(ma<0) ma=arr[i+1]; ma+=arr[i+1];
+        if(mi>0) mi=arr[i+1]; mi+=arr[i+1];
+        rdpMax[i]=max(rdpMax[i+1], ma);
+        rdpMin[i]=min(rdpMin[i+1], mi);
     }
-    printf("%d", ans);
+
+    long long ans=0;
+    for(int i=1; i<n-1; i++)
+        ans=max({ans, 
+                dpMax[i]*rdpMax[i+1],
+                dpMin[i]*rdpMin[i+1],
+                dpMax[i]*rdpMin[i+1],
+                dpMin[i]*rdpMax[i+1]});
+    printf("%lld", ans);
 }
 
 /*
