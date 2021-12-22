@@ -10,7 +10,8 @@ const int MOD=1'000'000;
 struct matrix{ long long a,b,c,d; };
 
 inline matrix operator*(const matrix& A, const matrix& B)
-{ return {(A.a*B.a+A.b*B.c)%MOD, (A.a*B.b+A.b*B.d)%MOD, (A.c*B.a+A.d*B.c)%MOD, (A.c*B.b+A.d*B.d)%MOD}; }
+{ return { (A.a*B.a+A.b*B.c)%MOD, (A.a*B.b+A.b*B.d)%MOD, 
+           (A.c*B.a+A.d*B.c)%MOD, (A.c*B.b+A.d*B.d)%MOD}; }
 
 map<long long, matrix> dp;
 matrix pow_matrix(long long n)
