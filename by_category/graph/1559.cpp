@@ -55,7 +55,7 @@ int main(void)
             t_box[a-1][b-1]=i+1;
         }
 
-        priority_queue<status, vector<status>, comp>  q;
+        priority_queue<status, vector<status>, comp> q;
         vector<vector<vector<int> > > visited(m, vector<vector<int> >(n, vector<int>((1<<(k+1))-1, INT32_MAX)));
         visited[0][0][0]=0;
         q.push(status({0,0,0,0}));
