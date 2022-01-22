@@ -1,5 +1,5 @@
 // https://www.acmicpc.net/problem/15783
-// 2022-01-23 05:29:50 868ms
+// 2022-01-23 05:36:07 60ms
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -79,24 +79,11 @@ int main(void)
 
     SCC scc(graph);
     int cnt=0;
-    vector<int> infected(scc.graph.size());
-    for(int i=scc.sccarr.size()-1; i>=0; i--)
-    {
-        if(!infected[i])
-        {
-            cnt++;
-            queue<int> q;
-            q.push(i);
-            while(!q.empty())
-            {
-                int now=q.front(); q.pop();
-                infected[now]=1;
-                for(auto next : scc.graph[now])
-                    q.push(next);
-            }
-        }
-    }
-    printf("%d", cnt);
+    vector<int> indegree(scc.sccarr.size());
+    for(auto it : scc.graph)
+        for(auto i : it)
+            indegree[i]=1;
+    printf("%d", scc.sccarr.size() - accumulate(indegree.begin(), indegree.end(), 0));
 }
 
 /*
