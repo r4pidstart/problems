@@ -1,9 +1,10 @@
 // https://www.acmicpc.net/problem/8017
-// 2022-02-19 02:24:32 372ms
+// 2022-02-19 02:38:43 368ms
 
 #include<stdlib.h>
 #include<stdio.h>
 
+int	table[2002][2002], dp[2002][2002];
 enum e_stack
 {
 	INIT = 0,
@@ -14,7 +15,7 @@ enum e_stack
 	CLEAR = 5
 };
 
-int	stack(int cmd, int value)
+inline int	stack(int cmd, int value)
 {
 	static int	cur;
 	static int	*stk;
@@ -43,10 +44,24 @@ int	stack(int cmd, int value)
 	}
 }
 
-void	memorization(int size, int **table, int **dp)
+
+int	main(void)
 {
+	int	size;
 	int	i;
 	int	j;
+	int	ans;
+	int	tmp;
+
+	scanf("%d", &size);
+    
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+			scanf("%d", &table[i+1][j+1]);
+	}
 
 	i = 0;
 	while (++i <= size)
@@ -60,37 +75,6 @@ void	memorization(int size, int **table, int **dp)
 				dp[i][j] = 0;
 		}
 	}
-}
-
-int	memory_allocation(int size, int ***table, int ***dp)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	*table = (int **)malloc(sizeof(int *) * size);
-	*dp = (int **)malloc(sizeof(int *) * size);
-	if (!table || !dp)
-		return (1);
-	while (++i < size)
-	{
-		(*table)[i] = (int *)malloc(sizeof(int) * size);
-		(*dp)[i] = (int *)malloc(sizeof(int) * size);
-		if (!(*table)[i] || !(*dp)[i])
-			return (1);
-		j = -1;
-		while (++j < size)
-			(*dp)[i][j] = 0;
-	}
-	return (0);
-}
-
-int	solve(int size, int **dp)
-{
-	int	i;
-	int	j;
-	int	ans;
-	int	tmp;
 
 	ans = 0;
 	stack(INIT, size);
@@ -110,30 +94,5 @@ int	solve(int size, int **dp)
 			stack(PUSH, j);
 		}
 	}
-	return (ans);
-}
-
-int	main(int argc, char *argv[])
-{
-	int	n;
-	int	i;
-	int	j;
-	int	**table;
-	int	**dp;
-
-	(void)argc, (void)argv;
-	table = 0;
-	dp = 0;
-	scanf("%d", &n);
-	if (memory_allocation(n+2, &table, &dp))
-		return (1);
-	i = -1;
-	while (++i < n)
-	{
-		j = -1;
-		while (++j < n)
-			scanf("%d", &table[i+1][j+1]);
-	}
-	memorization(n, table, dp);
-	printf("%d", solve(n, dp));
+	printf("%d", ans);
 }
