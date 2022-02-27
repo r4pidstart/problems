@@ -1,8 +1,7 @@
 // https://www.acmicpc.net/problem/13306
-// 2022-02-27 23:06:24 252ms
+// 2022-02-27 23:06:24 144ms
 #include<bits/stdc++.h>
 using namespace std;
-
 class Dsu
 {
     private:
@@ -41,37 +40,40 @@ struct query1
 
 int main(void)
 {
-    int n,q; scanf("%d%d", &n, &q);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int n,q; cin >> n >> q;
     Dsu uf(n+1);
     vector<int> parent(n+1);
-    unordered_set<int> removed_edge;
+    vector<int> removed_edge(n+1, 0);
     removed_edge.reserve(n);
 
     for(int i=2; i<=n; i++)
-        scanf("%d", &parent[i]);
+        cin >> parent[i];
 
-    list<query0> q0; list<query1> q1;
+    stack<query0> q0; stack<query1> q1;
     for(int i=0; i<n-1+q; i++)
     {
-        int cmd; scanf("%d", &cmd);
+        int cmd; cin >> cmd;
         if(cmd==0)
         {  
             // cut edge
-            int a; scanf("%d", &a);
-            removed_edge.insert(a);
-            q0.push_back({i, a});
+            int a; cin >> a;
+            removed_edge[a]=1;
+            q0.push({i, a});
         }
         else
         {
             // find route
-            int a,b; scanf("%d%d", &a, &b);
-            q1.push_back({i,a,b});
+            int a,b; cin >> a >> b;
+            q1.push({i,a,b});
         }
     }
 
     for(int i=2; i<=n; i++)
     {
-        if(removed_edge.find(i) == removed_edge.end()) // linked?
+        if(!removed_edge[i]) // linked?
             uf.merge(i, parent[i]);
     }
 
@@ -81,30 +83,30 @@ int main(void)
         if(q0.empty())
         {
             // q1
-            ans.push_back(uf.find(q1.back().a) == uf.find(q1.back().b));
-            q1.pop_back();
+            ans.push_back(uf.find(q1.top().a) == uf.find(q1.top().b));
+            q1.pop();
         }
         else if(q1.empty())
         {
             // q0
-            uf.merge(q0.back().a, parent[q0.back().a]);
-            q0.pop_back();
+            uf.merge(q0.top().a, parent[q0.top().a]);
+            q0.pop();
         }
-        else if(q0.back().idx < q1.back().idx)
+        else if(q0.top().idx < q1.top().idx)
         {
             // q1
-            ans.push_back(uf.find(q1.back().a) == uf.find(q1.back().b));
-            q1.pop_back();
+            ans.push_back(uf.find(q1.top().a) == uf.find(q1.top().b));
+            q1.pop();
         }
         else
         {
             // q0
-            uf.merge(q0.back().a, parent[q0.back().a]);
-            q0.pop_back();
+            uf.merge(q0.top().a, parent[q0.top().a]);
+            q0.pop();
         }
     }
     for(int i=ans.size()-1; i>=0; i--)
-        printf("%s\n", ans[i] ? "YES":"NO");
+        cout << (ans[i] ? "YES":"NO") << "\n";
 }
 
 // /*

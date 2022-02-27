@@ -5,28 +5,35 @@ using namespace std;
 
 int main(void)
 {
-    int n; scanf("%d", &n);
-    long long cnt=0, sum=0;
-    vector<int> divisor, arr(n);
-    for(int i=0; i<n; i++)
-        scanf("%d", &arr[i]);
+    cout.tie(NULL);
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
 
-    int target; scanf("%d", &target);
+    int n; cin >> n;
+    long long cnt=0, sum=0;
+    vector<int> divisor(100), arr(n);
+    for(int i=0; i<n; i++)
+        cin >> arr[i];
+
+    int target, divcnt=-1; cin >> target;
     for(int i=2; i<=target; i++)
         if(target%i == 0)
-            divisor.push_back(i);
+            divisor[++divcnt]=i;
 
-    for(auto i : arr)
+    for(int i=0; i<n; i++)
     {
         int flag=0;
-        for(auto j : divisor)
-            if(i%j==0)
-                flag++;
+        for(int j=0; j<divcnt; j++)
+        {
+            if(arr[i]%j == 0)
+            {
+                flag=1;
+                break;
+            }
         if(!flag)
-            sum+=i, cnt++;
-    }            
-
-    printf("%lf", (double)sum/cnt);
+            sum+=i, ++cnt;
+    }
+    cout << (double)sum/cnt;
 }
 
 /*
