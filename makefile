@@ -1,6 +1,2 @@
-test: test.o
-	g++ test.o -o test
-	rm test.o
-
-test.o:
-	g++ test.cpp -std=c++17 -Wall -pedantic -c
+test: test.cpp
+	g++ test.cpp -std=c++17 -g3 -fsanitize=address -Wall -pedantic -o test

@@ -12,11 +12,12 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
-                "-g",
+                "-g3",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
-                "-std=c++17"
+                "-std=c++17",
+                "-fsanitize=address"
             ],
             "options": {
                 "cwd": "${fileDirname}"
