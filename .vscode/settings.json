@@ -6,6 +6,24 @@
         "utility": "cpp",
         "random": "cpp",
         "stack": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "bit": "cpp",
+        "bitset": "cpp",
+        "cinttypes": "cpp",
+        "cstdlib": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "filesystem": "cpp",
+        "forward_list": "cpp",
+        "functional": "cpp",
+        "future": "cpp",
+        "iomanip": "cpp",
+        "iterator": "cpp",
+        "list": "cpp",
+        "memory": "cpp",
+        "regex": "cpp",
+        "scoped_allocator": "cpp",
+        "type_traits": "cpp",
+        "__locale": "cpp"
     }
 }
