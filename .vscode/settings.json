@@ -24,6 +24,8 @@
         "regex": "cpp",
         "scoped_allocator": "cpp",
         "type_traits": "cpp",
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "iostream": "cpp",
+        "array": "cpp"
     }
 }
