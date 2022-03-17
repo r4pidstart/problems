@@ -26,6 +26,7 @@
         "type_traits": "cpp",
         "__locale": "cpp",
         "iostream": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "iosfwd": "cpp"
     }
 }
