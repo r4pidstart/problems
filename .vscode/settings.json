@@ -27,6 +27,8 @@
         "__locale": "cpp",
         "iostream": "cpp",
         "array": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "numeric": "cpp",
+        "ios": "cpp"
     }
 }
