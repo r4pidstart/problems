@@ -1,7 +1,7 @@
 {
-	"ps":
+	"init":
 	{
-		"prefix": "ps",
+		"prefix": "init",
 		"body":[
 			"// https://www.acmicpc.net/problem/",
 			"//",
@@ -15,6 +15,29 @@
 			"    ",
 			"*/"
 		], 
-		"description": "ps"
+		"description": "",
+		
+	},
+	"way":
+	{
+		"prefix": "way",
+		"body":[
+			"const int way[4][2]={{0,1}, {1,0}, {0,-1}, {-1,0}};"
+		], 
+		"description": "",
+		
+	},
+	"print_table":
+	{
+		"prefix": "print_table",
+		"body":[
+			"printf(\"\n\");",
+       	 	"for(int i=0; i<n; i++)",
+        	"{",
+            "    for(int j=0; j<m; j++)",
+            "        printf(\"%d \", $1[i][j]);",
+            "    printf(\"\n\");",
+        	"}"
+		]
 	}
 }
