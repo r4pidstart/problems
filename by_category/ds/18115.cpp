@@ -1,6 +1,5 @@
-// https://www.acmicpc.net/problem/
+// https://www.acmicpc.net/problem/18115
 // 2022-04-14 03:51:16 244ms
-// by r4pidstart
 #include<bits/stdc++.h>
 using namespace std;
 
