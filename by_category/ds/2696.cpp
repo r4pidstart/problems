@@ -1,47 +1,47 @@
 // https://www.acmicpc.net/problem/2696
-// 2021-07-25 02:01:10 4ms
-#include<bits/stdc++.h>
+// 2022-05-09 01:32:00 4ms
+#include"bits/stdc++.h"
 using namespace std;
-
-priority_queue<int> minpq, maxpq;
-// minpq.top() -> middle
 
 int main(void)
 {
+    
     int t; scanf("%d", &t);
     while(t--)
     {
-        minpq=maxpq=priority_queue<int>();
         int n; scanf("%d", &n);
-        printf("%d\n", (n+1)/2);
-        maxpq.push(INT32_MIN);
-        int cnt=0;
-        for(int i=1; i<=n; i++)
+        printf("%d\n", (int)ceil((double)n/2));
+        priority_queue<int, vector<int>, less<int>> pq_max; 
+        priority_queue<int, vector<int>, greater<int>> pq_min;
+        int flag=0, cnt=0;;
+        for(int i=0; i<n; i++)
         {
-            int a; scanf("%d", &a);
-            if(i&1)
-                minpq.push(-a);
+            int tmp;
+            if(flag==0)
+            {
+                flag++;
+                scanf("%d", &tmp);
+                pq_max.push(tmp);
+            }
             else
-                maxpq.push(a);
-
-            while(-minpq.top()<maxpq.top())
             {
-                int tmpmin=-minpq.top(), tmpmax=maxpq.top();
-                minpq.pop(), maxpq.pop();
-                minpq.push(-tmpmax), maxpq.push(tmpmin);
+                flag--;
+                scanf("%d", &tmp);
+                pq_min.push(tmp);
             }
-            if(i&1)
+            if(pq_min.size()!=0)
             {
-                printf("%d ", -minpq.top());
-                cnt++;
-                if(!(cnt%10))
-                    printf("\n");
+                if(pq_min.top()<pq_max.top())
+                {
+                    pq_min.push(pq_max.top());
+                    pq_max.push(pq_min.top());
+                    pq_min.pop();
+                    pq_max.pop();
+                }
             }
+            if(!(i&1)) printf("%d ", pq_max.top()),cnt++;
+            if(!(i&1) and !(cnt%10)) printf("\n");
         }
         printf("\n");
     }
 }
-
-/*
-
-*/
