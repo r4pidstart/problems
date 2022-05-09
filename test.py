@@ -1,11 +1,27 @@
-n,k=map(int, input().split())
-arr=list(map(int, input().split()))
+import math
 
-sum_arr=sum(arr)
-mina=maxa=k * sum_arr - arr[0]
+n=100000
+arr = [True for i in range(n+1)]
 
-for i in range(n):
-    mina=min(mina, k*sum_arr - arr[i])
-    maxa=max(maxa, k*sum_arr - arr[i])
+for i in range(2, int(math.sqrt(n)) + 1) :
+  if arr[i] == True :
+    j = 2
+    while i * j <= n :
+      arr[i * j] = False
+      j += 1
 
-print(maxa-mina)
+primes=[]
+for i in range(2, n+1):
+  if arr[i]:
+      primes.append(i);
+  
+target=int(input())
+ans=0
+for i in range(len(primes)):
+  for j in range(i):
+    if(primes[i]**3 * primes[j] <= target):
+      ans+=1
+    else:
+      break
+  
+print(ans)
