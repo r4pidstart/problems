@@ -91,5 +91,7 @@
         "valarray": "cpp",
         "variant": "cpp",
         "__functional_base": "cpp"
-    }
+    },
+    "codam-norminette-3.regex": "^ft_.*\\.[ch]$",
+    "codam-norminette-3.highlight-color": "rgba(255,0,0,0.1)"
 }
