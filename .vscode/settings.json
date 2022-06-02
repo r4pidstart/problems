@@ -90,8 +90,12 @@
         "unordered_set": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "__functional_base": "cpp"
+        "__functional_base": "cpp",
+        "ciso646": "cpp",
+        "cfloat": "cpp",
+        "cerrno": "cpp"
     },
     "codam-norminette-3.regex": "^ft_.*\\.[ch]$",
-    "codam-norminette-3.highlight-color": "rgba(255,0,0,0.1)"
+    "codam-norminette-3.highlight-color": "rgba(255,0,0,0.1)",
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }
