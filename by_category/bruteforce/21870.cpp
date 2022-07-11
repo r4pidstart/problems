@@ -5,18 +5,16 @@ using namespace std;
 
 int get_ans(int s, int e, int val, vector<int>& arr)
 {
-    if(e-s == 1)
-        return val + arr[s] + arr[e];
-    else if(e-s == 0)
+    if(e-s == 0)
         return val + arr[s];
 
-    int res1=arr[s], res2=arr[e], mid=(s+e)/2;
-    for(int i=s; i<mid; i++)
+    int res1=arr[s], res2=arr[e], mid=(s+e-1)/2;
+    for(int i=s; i<=mid; i++)
         res1=gcd(res1, arr[i]);
-    for(int i=mid; i<=e; i++)
+    for(int i=mid+1; i<=e; i++)
         res2=gcd(res2, arr[i]);
     
-    return max(get_ans(s, mid-1, val+max(res1, res2), arr), get_ans(mid, e, val+max(res1, res2), arr));
+    return max(get_ans(s, mid, val+res2, arr), get_ans(mid+1, e, val+res1, arr));
 }
 
 int main(void)
