@@ -1,7 +1,7 @@
 {
-	"init":
+	"init1":
 	{
-		"prefix": "init",
+		"prefix": "init1",
 		"body":[
 			"// https://www.acmicpc.net/problem/$1",
 			"// $2",
@@ -18,7 +18,29 @@
 			"*/"
 		], 
 		"description": "",
-		
+	},
+	"init2":
+	{
+		"prefix": "init2",
+		"body":[
+			"// https://www.acmicpc.net/problem/$1",
+			"// $2",
+			"#include\"bits/stdc++.h\"",
+			"using namespace std;",
+			"#define int long",
+			"",
+			"signed main(void)",
+			"{",
+			"    ios_base::sync_with_stdio(false);"
+			"    cout.tie(0), cin.tie(0);",
+			"    $3",
+			"}",
+			"",
+			"/*",
+			"    ",
+			"*/"
+		], 
+		"description": "",
 	},
 	"way":
 	{
