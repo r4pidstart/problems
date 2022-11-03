@@ -1,5 +1,5 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/14426
+// 2022-11-02 21:22:54
 #include"bits/stdc++.h"
 using namespace std;
 #define int long
