@@ -11,7 +11,8 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-std=c++17",
-                "-fsanitize=address"
+                "-fsanitize=address",
+                "-DLOCAL"
             ],
             "options": {
                 "cwd": "${fileDirname}"
