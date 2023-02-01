@@ -17,7 +17,7 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "-std=c++17"
+                ""
             ],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
