@@ -1,7 +1,7 @@
 {
 	"init1":
 	{
-		"prefix": "init",
+		"prefix": "init1",
 		"body":[
 			"// https://www.acmicpc.net/problem/$1",
 			"// $2",
