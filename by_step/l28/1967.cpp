@@ -1,35 +1,44 @@
 // https://www.acmicpc.net/problem/1967
-// 2021-05-03 20:51:55 4ms
-#include<bits/stdc++.h>
+// 2023-02-13 00:22:07
+#include"bits/stdc++.h"
 using namespace std;
 
-int dfs(int now, int prev, int d, vector<vector<pair<int,int> > > &tree)
+pair<int,int> farthest(int now, vector<vector<pair<int, int> > >& graph, int begin)
 {
-    if(tree[now].size()==1 && tree[now][0].first==prev)
-        return d;
-    else
+    static vector<int> visited;
+
+    if(begin)
+        visited=vector<int>(graph.size());
+
+    visited[now]=1;
+    pair<int,int> ret={0, now};
+    for(auto& [next, dist] : graph[now])
     {
-        int ret=0;
-        for(auto it=tree[now].begin(); it!=tree[now].end(); it++)
-            if(it->first != prev)
-                ret=max(ret, dfs(it->first, now, d+it->second, tree));
-        return ret;
+        if(!visited[next])
+        {
+            auto tmp=farthest(next, graph, 0);
+            if(tmp.first+dist > ret.first)
+                ret={tmp.first+dist, tmp.second};
+        }
     }
+    return ret;
 }
 
 int main(void)
 {
+#ifdef LOCAL
+#endif
     int n; scanf("%d", &n);
-    vector<int> distance(n+1, 0);
-    vector<vector<pair<int,int> > > tree(n+1);
-    pair<int,int> max_distance={0,0}; // dist, point
-    for(int i=1; i<n; i++)
+    vector<vector<pair<int, int> > > graph(n+1);
+    for(int i=0; i<n-1; i++)
     {
-        int a,b,c; scanf("%d%d%d", &a,&b,&c);
-        distance[b]=distance[a]+c;
-        max_distance=max(max_distance, {distance[b], b});
-        tree[a].push_back({b,c});
-        tree[b].push_back({a,c});
+        int a,b,c; scanf("%d%d%d", &a, &b, &c);
+        graph[a].push_back({b, c});
+        graph[b].push_back({a, c});
     }
-    printf("%d",dfs(max_distance.second, 0, 0, tree));    
+    printf("%d", farthest(farthest(1, graph, 1).second, graph, 1).first);
 }
+
+/*
+    
+*/
