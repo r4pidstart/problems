@@ -1,6 +1,7 @@
 // https://www.acmicpc.net/problem/18234
 // 2023-02-23 03:40:33
-#include"bits/stdc++.h"
+
+#include "bits/stdc++.h"
 using namespace std;
 
 int main(void)
