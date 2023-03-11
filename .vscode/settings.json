@@ -99,4 +99,8 @@
     "codam-norminette-3.regex": "^ft_.*\\.[ch]$",
     "codam-norminette-3.highlight-color": "rgba(255,0,0,0.1)",
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "lldb.dereferencePointers": true,
+    "lldb.consoleMode": "evaluate",
+    "lldb.showDisassembly": "auto",
+    "lldb.displayFormat": "auto",
 }
