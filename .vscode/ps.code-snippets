@@ -16,7 +16,7 @@
 			"}",
 			"",
 			"/*",
-			"    ",
+			"    $4",
 			"*/"
 		], 
 		"description": "",
@@ -33,7 +33,7 @@
 			"",
 			"signed main(void)",
 			"{",
-			"    ios_base::sync_with_stdio(false);"
+			"    ios_base::sync_with_stdio(false);",
 			"    cout.tie(0), cin.tie(0);",
 			"    $3",
 			"}",
