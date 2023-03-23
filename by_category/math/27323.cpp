@@ -7,7 +7,7 @@ int main(void)
 {
 #ifdef LOCAL
 #endif
-    int a,b; scanf("%d%d");
+    int a,b; scanf("%d%d", &a, &b);
     printf("%d", a*b);
 }
 
