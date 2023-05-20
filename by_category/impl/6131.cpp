@@ -1,4 +1,4 @@
-// https://www.acmicpc.net/problem/6131
+ // https://www.acmicpc.net/problem/6131
 // 2023-05-20 02:09:53
 #include"bits/stdc++.h"
 using namespace std;
