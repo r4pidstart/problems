@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "problems_2635c3eb"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
@@ -12,7 +19,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "clang - 활성 파일 빌드 및 디버그",
+            "name": "clang++ - 활성 파일 빌드 및 디버그",
             "type": "lldb",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
@@ -27,12 +34,27 @@
             "preLaunchTask": "C/C++: clang 활성 파일 빌드"
         },
         {
+            "name": "clang - 활성 파일 빌드 및 디버그",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [
+                ""
+            ],
+            "stopAtEntry": true,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "C: clang 활성 파일 빌드"
+        },
+        {
             "name": "g++ - 활성 파일 빌드 및 디버그",
             "type": "lldb",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "-std=c++17"
+                ""
             ],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",

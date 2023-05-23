@@ -85,5 +85,14 @@
 		"body":[
 			"vector<vector<vector<vector<int> > > > $2($3, vector<vector<vector<int> > >($4, vector<vector<int> >($5, vector<int>($6))));"
 		]
+	},
+	"debug":
+	{
+		"prefix": "debug",
+		"body":[
+			"#ifdef LOCAL",
+			"    $1",
+			"#endif",
+		]	
 	}
 }
