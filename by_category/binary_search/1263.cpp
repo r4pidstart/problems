@@ -1,14 +1,12 @@
 // https://www.acmicpc.net/problem/1263
-// 2023-07-20 07:06:27
+// 2023-07-20 16:11:13
 #include"bits/stdc++.h"
 using namespace std;
 
-int check(int mid, vector<tuple<int, int, int> >& arr)
+int check(int mid, vector<tuple<int, int> >& arr)
 {
-    int flag=mid==44;
-    for(auto& [e, s, t] : arr)
+    for(auto& [e, t] : arr)
     {
-        if(flag) printf("%d %d %d %d %d\n", mid, mid+t, s, e, t);
         if(mid+t>e) return 0;
         else mid+=t;
     }
@@ -20,11 +18,11 @@ int main(void)
 #ifdef LOCAL
 #endif
     int n; scanf("%d", &n);
-    vector<tuple<int, int, int> > arr(n);
+    vector<tuple<int, int> > arr(n);
     for(int i=0; i<n; i++)
     {
         int a,b; scanf("%d%d", &a, &b);
-        arr[i]={b, b-a, a};
+        arr[i]={b, a};
     }
     
     sort(arr.begin(), arr.end());
