@@ -1,5 +1,5 @@
 // https://www.acmicpc.net/problem/
-// MATCHFIX
+// BISHOPS
 #include"bits/stdc++.h"
 using namespace std;
 
