@@ -14,7 +14,7 @@ int main(void)
         int cnt=0, val=0;
         for(int i=0; i<15; i++)
         {
-            int b; scanf("%d", &b);
+            int b; scanf("%d", &b); 
             if(b>val) cnt++;
             val=b;            
         }
