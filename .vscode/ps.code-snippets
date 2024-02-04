@@ -10,8 +10,6 @@
 			"",
 			"int main(void)",
 			"{",
-			"#ifdef LOCAL",
-			"#endif",
 			"    $3",
 			"}",
 			"",
