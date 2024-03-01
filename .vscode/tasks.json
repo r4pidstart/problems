@@ -55,7 +55,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++ 활성 파일 빌드",
-            "command": "g++-12", //
+            "command": "g++-13", //
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
