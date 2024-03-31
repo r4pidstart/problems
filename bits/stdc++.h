@@ -100,7 +100,7 @@
 #endif
 #endif
 
-#if _GLIBCXX_HOSTED
+// #if _GLIBCXX_HOSTED
 // C
 #ifndef _GLIBCXX_NO_ASSERT
 #include <cassert>
@@ -127,7 +127,7 @@
 #include <ccomplex>
 #include <cfenv>
 #include <cinttypes>
-#include <cstdalign>
+// #include <cstdalign>
 #include <cstdbool>
 #include <cstdint>
 #include <ctgmath>
@@ -213,12 +213,12 @@
 #include <numbers>
 #include <ranges>
 #include <span>
-#include <stop_token>
+// #include <stop_token>
 #include <semaphore>
 #include <source_location>
-#include <syncstream>
+// #include <syncstream>
 #include <version>
-#endif
+// #endif
 
 #if __cplusplus > 202002L
 #include <expected>
