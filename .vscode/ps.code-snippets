@@ -50,6 +50,18 @@
 		], 
 		"description": "",
 	},
+	"next_coord":
+	{
+		"prefix": "next_coord",
+		"body":[
+			"for(int w=0; w<$1; w++)",
+			"{",
+			"    int nx=x+way[w][0], ny=y+way[w][1];",
+			"    if(0<=nx and nx<n and 0<=ny and ny<m)",
+			"",
+			"}",
+		]
+	},
 	"print_table":
 	{
 		"prefix": "print_table",
