@@ -95,7 +95,12 @@
         "cfloat": "cpp",
         "cerrno": "cpp",
         "stdio.h": "c",
-        "libc.h": "c"
+        "libc.h": "c",
+        "__verbose_abort": "cpp",
+        "charconv": "cpp",
+        "rope": "cpp",
+        "*.tcc": "cpp",
+        "cassert": "cpp"
     },
     "codam-norminette-3.regex": "^ft_.*\\.[ch]$",
     "codam-norminette-3.highlight-color": "rgba(255,0,0,0.1)",
