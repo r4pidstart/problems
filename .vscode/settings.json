@@ -100,7 +100,18 @@
         "charconv": "cpp",
         "rope": "cpp",
         "*.tcc": "cpp",
-        "cassert": "cpp"
+        "cassert": "cpp",
+        "span": "cpp",
+        "any": "cpp",
+        "barrier": "cpp",
+        "codecvt": "cpp",
+        "cuchar": "cpp",
+        "coroutine": "cpp",
+        "latch": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "shared_mutex": "cpp",
+        "source_location": "cpp"
     },
     "codam-norminette-3.regex": "^ft_.*\\.[ch]$",
     "codam-norminette-3.highlight-color": "rgba(255,0,0,0.1)",
@@ -109,4 +120,5 @@
     "lldb.consoleMode": "evaluate",
     "lldb.showDisassembly": "auto",
     "lldb.displayFormat": "auto",
+    "cph.general.saveLocation": "",
 }
