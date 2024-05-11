@@ -4,3 +4,5 @@ test*
 *.dSYM
 ext
 *.txt
+.cph
+.mypy_cache
