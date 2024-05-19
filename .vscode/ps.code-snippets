@@ -10,7 +10,7 @@
 			"",
 			"int main(void)",
 			"{",
-			"#ifdef LOCAL",
+			"#ifndef LOCAL",
 			"    cin.tie(nullptr)->sync_with_stdio(false);",
 			"#endif",
 			"    $3",
@@ -70,12 +70,12 @@
 	{
 		"prefix": "print_table",
 		"body":[
-			"printf(\"\\n\");",
+			"cout << '\\n';",
        	 	"for(int i=0; i<n; i++)",
         	"{",
             "    for(int j=0; j<m; j++)",
-            "        printf(\"%d \", $1[i][j]);",
-            "    printf(\"\\n\");",
+			"        cout << $1[i][j] << ' ';",
+            "    cout << '\\n';",
         	"}"
 		]
 	},
